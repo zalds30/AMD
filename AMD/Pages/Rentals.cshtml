@@ -1,0 +1,54 @@
+﻿@page
+@model AMD.Pages.RentalsModel
+@{
+    ViewData["Title"] = "Rentals - AMD Audio & Lighting";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1 class="display-4">Equipment Rentals</h1>
+        <p class="lead">Professional audio and lighting equipment for all your event needs</p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <h2 class="text-center mb-5">Our Rental Equipment</h2>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="card-icon"><i class="fas fa-volume-up"></i></div>
+                    <h4 class="card-title">Speaker Systems</h4>
+                    <p class="card-text">High power speakers for small to large events</p>
+                    <p class="h5 text-primary">₱2,000 / day</p>
+                    <a asp-page="/Booking" class="btn btn-outline-primary mt-3">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="card-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h4 class="card-title">Audio Mixers</h4>
+                    <p class="card-text">Professional-grade mixing consoles</p>
+                    <p class="h5 text-primary">₱1,500 / day</p>
+                    <a asp-page="/Booking" class="btn btn-outline-primary mt-3">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4 class="card-title">Stage Lighting</h4>
+                    <p class="card-text">Professional LED stage lights</p>
+                    <p class="h5 text-primary">₱2,500 / day</p>
+                    <a asp-page="/Booking" class="btn btn-outline-primary mt-3">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿@page
+@model AMD.Pages.ContactModel
+@{
+    ViewData["Title"] = "Contact - AMD Audio & Lighting";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1 class="display-4">Contact Us</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Contact Information</h4>
+                    <p><i class="fas fa-phone text-primary me-2"></i> <strong>Phone:</strong> +63 9265684372</p>
+                    <p><i class="fas fa-envelope text-primary me-2"></i> <strong>Email:</strong> info@amdaudiolight.com</p>
+                    <p><i class="fas fa-map-marker-alt text-primary me-2"></i> <strong>Address:</strong> Lanipao Lala, Lanao del Norte, Philippines</p>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3">Business Hours</h5>
+                    <p><i class="fas fa-clock text-primary me-2"></i> Monday - Friday: 8:00 AM - 8:00 PM</p>
+                    <p><i class="fas fa-clock text-primary me-2"></i> Saturday: 8:00 AM - 10:00 PM</p>
+                    <p><i class="fas fa-clock text-primary me-2"></i> Sunday: 10:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Send us a Message</h4>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" rows="4" name="message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gradient">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

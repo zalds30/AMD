@@ -1,0 +1,689 @@
+﻿@page
+@model AMD.Pages.AboutModel
+@{
+    ViewData["Title"] = "About AMD Audio & Lighting";
+}
+
+@section Styles {
+    <style>
+        /* Hero Section - Natural gradient overlay */
+        .about-hero {
+            min-height: 65vh;
+            background: linear-gradient(125deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.88) 100%), url('/images/about-bg.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: white;
+            padding: 120px 0 80px;
+            position: relative;
+        }
+
+            .about-hero::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 100px;
+                background: linear-gradient(to bottom, transparent, #f8fafc);
+            }
+
+        .hero-badge {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        /* Story Section - Realistic layout */
+        .story-section {
+            padding: 100px 0;
+            background: #f8fafc;
+            position: relative;
+        }
+
+        .story-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .story-image-wrapper {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: rotate(-1deg);
+        }
+
+        .story-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .story-image-wrapper:hover .story-image {
+            transform: scale(1.05);
+        }
+
+        .story-image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+
+        .story-content h2 {
+            font-size: 2.4rem;
+            color: #0f172a;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .story-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #475569;
+            margin-bottom: 20px;
+        }
+
+        .story-quote {
+            border-left: 4px solid #2563eb;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #475569;
+            font-size: 1.1rem;
+        }
+
+        /* Stats - Realistic layout */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #0f172a;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .value-card {
+            background: #f8fafc;
+            padding: 40px 30px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+            .value-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(37, 99, 235, 0.08);
+                border-color: #2563eb;
+            }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .value-title {
+            font-size: 1.3rem;
+            color: #0f172a;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .value-description {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+            .team-member:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            }
+
+        .team-photo {
+            height: 250px;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #2563eb;
+        }
+
+        .team-info {
+            padding: 25px;
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            color: #0f172a;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .team-position {
+            color: #2563eb;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .team-bio {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .team-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+            .social-link:hover {
+                background: #2563eb;
+                color: white;
+            }
+
+        /* CTA Section - Simple and effective */
+        .about-cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cta-text {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 992px) {
+            .story-container
+
+        {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        }
+
+        @@media (max-width: 768px) {
+            .about-hero
+
+        {
+            min-height: 50vh;
+            padding: 100px 0 60px;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+        }
+
+        /* Animation classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+            .fade-up.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+    </style>
+}
+
+<!-- Hero Section -->
+<section class="about-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <span class="hero-badge fade-up">
+                    <i class="fas fa-star"></i>Our Story
+                </span>
+                <h1 class="hero-title fade-up">
+                    Bringing <span class="hero-highlight">Sound & Light</span> to Life Since 2012
+                </h1>
+                <p class="hero-subtitle fade-up">
+                    AMD Audio & Lighting started with a simple passion: creating unforgettable experiences through professional audio-visual solutions. What began as a small local service has grown into one of the most trusted event production partners in the Philippines.
+                </p>
+                <div class="fade-up">
+                    <a href="#story" class="btn btn-primary-custom me-3">
+                        <i class="fas fa-book me-2"></i>Our Journey
+                    </a>
+                    <a href="#team" class="btn btn-secondary-custom">
+                        <i class="fas fa-users me-2"></i>Meet Our Team
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Story -->
+<section id="story" class="story-section">
+    <div class="container">
+        <div class="story-container">
+            <div class="story-image-wrapper fade-up">
+                <img src="/images/team-work.jpg" alt="Our team setting up equipment" class="story-image">
+                <div class="story-image-overlay">
+                    <i class="fas fa-quote-left me-2"></i>
+                    <span>Passionate professionals creating memorable events</span>
+                </div>
+            </div>
+
+            <div class="story-content">
+                <h2 class="fade-up">How It All Began</h2>
+                <p class="fade-up">
+                    AMD Audio & Lighting was founded by Joel Delos Reyes in 2012. Starting with just two speakers and a mixer, Alex saw a need for reliable, high-quality audio equipment for local events in Lanao del Norte.
+                </p>
+                <p class="fade-up">
+                    What started as weekend gigs for weddings and community events quickly grew as word spread about our commitment to quality and customer service. We listened to our clients, invested in better equipment, and expanded our team with like-minded professionals.
+                </p>
+
+                <blockquote class="story-quote fade-up">
+                    "Our philosophy is simple: treat every event like it's our own. Whether it's a small birthday party or a large corporate conference, we bring the same level of dedication and expertise."
+                    <div class="mt-2" style="font-style: normal; color: #2563eb; font-weight: 600;">- Joel Delos Reyes, Founder</div>
+                </blockquote>
+
+                <p class="fade-up">
+                    Today, we serve clients across Mindanao and beyond, but we've never lost that personal touch that made us successful. We still handle every booking personally and maintain direct relationships with all our clients.
+                </p>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid fade-up">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Events Served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Client Satisfaction</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support Available</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Cities Covered</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Values -->
+<section class="values-section">
+    <div class="container">
+        <div class="section-header fade-up">
+            <h2 class="section-title">What We Stand For</h2>
+            <p class="section-subtitle">These principles guide everything we do, from equipment selection to customer service</p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card fade-up">
+                <div class="value-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h3 class="value-title">Quality Equipment</h3>
+                <p class="value-description">We invest in professional-grade equipment from trusted brands and maintain it to the highest standards.</p>
+            </div>
+
+            <div class="value-card fade-up">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3 class="value-title">Reliable Service</h3>
+                <p class="value-description">When you book with us, we show up on time, prepared, and ready to make your event a success.</p>
+            </div>
+
+            <div class="value-card fade-up">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="value-title">Creative Solutions</h3>
+                <p class="value-description">Every event is unique. We work with you to create custom solutions that fit your vision and budget.</p>
+            </div>
+
+            <div class="value-card fade-up">
+                <div class="value-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="value-title">Local Pride</h3>
+                <p class="value-description">We're proud to be based in Lanao del Norte and are committed to supporting our local community.</p>
+            </div>
+
+            <div class="value-card fade-up">
+                <div class="value-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="value-title">Personal Support</h3>
+                <p class="value-description">You'll work directly with our team, not through automated systems. We're always here to help.</p>
+            </div>
+
+            <div class="value-card fade-up">
+                <div class="value-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="value-title">Continuous Growth</h3>
+                <p class="value-description">We're always learning and improving, staying updated with the latest audio-visual technologies.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Meet the Team -->
+<section id="team" class="team-section">
+    <div class="container">
+        <div class="section-header fade-up">
+            <h2 class="section-title">The People Behind the Scenes</h2>
+            <p class="section-subtitle">Meet the passionate professionals who make it all happen</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-member fade-up">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h3 class="team-name">Joel Delos Reyes</h3>
+                    <div class="team-position">Founder & Technical Director</div>
+                    <p class="team-bio">With 15+ years in event production, Alex oversees all technical operations and ensures every event meets our high standards.</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member fade-up">
+                <div class="team-photo">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <div class="team-info">
+                    <h3 class="team-name">Unknown</h3>
+                    <div class="team-position">Audio Specialist</div>
+                    <p class="team-bio">Certified audio engineer with expertise in sound system design and live mixing for events of all sizes.</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member fade-up">
+                <div class="team-photo">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="team-info">
+                    <h3 class="team-name">Kevin</h3>
+                    <div class="team-position">Lighting Director</div>
+                    <p class="team-bio">Creative lighting designer with background in theater production and concert lighting.</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member fade-up">
+                <div class="team-photo">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="team-info">
+                    <h3 class="team-name">Zaldy Delos Reyes</h3>
+                    <div class="team-position">Client Relations</div>
+                    <p class="team-bio">Manages all bookings and ensures every client receives personalized attention from inquiry to event day.</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-viber"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="about-cta fade-up">
+    <div class="container">
+        <h2 class="cta-title">Ready to Work Together?</h2>
+        <p class="cta-text">
+            Whether you're planning a wedding, corporate event, concert, or private party, we'd love to help bring your vision to life with professional audio and lighting solutions.
+        </p>
+        <div class="cta-buttons">
+            <a asp-page="/Contact" class="btn btn-primary-custom">
+                <i class="fas fa-envelope me-2"></i>Get in Touch
+            </a>
+            <a asp-page="/Booking" class="btn btn-light">
+                <i class="fas fa-calendar-check me-2"></i>Book Your Event
+            </a>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Simple scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-up');
+
+            const fadeOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+
+            // Initial check
+            fadeOnScroll();
+
+            // Check on scroll
+            window.addEventListener('scroll', fadeOnScroll);
+
+            // Add loading animation for images
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.style.transition = 'opacity 0.5s ease';
+                img.style.opacity = '0';
+
+                img.onload = function() {
+                    this.style.opacity = '1';
+                };
+
+                // If image is already loaded
+                if (img.complete) {
+                    img.style.opacity = '1';
+                }
+            });
+        });
+    </script>
+}

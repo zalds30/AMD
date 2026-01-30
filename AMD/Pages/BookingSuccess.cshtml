@@ -1,0 +1,46 @@
+﻿@page
+@{
+    ViewData["Title"] = "Booking Submitted Successfully";
+}
+
+<div class="container text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="success-animation mb-4">
+                <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+            </div>
+
+            <h1 class="display-5 fw-bold mb-4">Booking Request Submitted!</h1>
+
+            <div class="alert alert-success border-0 bg-success bg-opacity-10 mb-4">
+                <h4 class="alert-heading">Thank You!</h4>
+                <p class="mb-0">We have received your booking request and will contact you within 24 hours to discuss your event details and provide a customized quote.</p>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">What Happens Next?</h5>
+                    <ul class="list-unstyled text-start">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> We'll review your requirements</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Prepare a customized quote</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Contact you to discuss details</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Confirm booking and schedule</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                <a asp-page="/Index" class="btn btn-outline-primary">
+                    <i class="fas fa-home me-2"></i>Back to Home
+                </a>
+                <a asp-page="/Contact" class="btn btn-primary-custom">
+                    <i class="fas fa-phone-alt me-2"></i>Contact Us Now
+                </a>
+            </div>
+
+            <p class="text-muted mt-4">
+                For urgent inquiries, call us directly: <strong>+63 926 568 4372</strong>
+            </p>
+        </div>
+    </div>
+</div>
