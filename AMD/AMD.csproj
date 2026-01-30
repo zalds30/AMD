@@ -1,14 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<!-- Important: Para ma-copy ang static files -->
+		<CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+		<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\audio\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\images\" />
+		<Folder Include="wwwroot\audio\" />
+	</ItemGroup>
+
+	<!-- Ensure static files are copied -->
+	<ItemGroup>
+		<Content Update="wwwroot\**" CopyToPublishDirectory="PreserveNewest" />
+		<Content Update="Pages\**" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
 
 </Project>

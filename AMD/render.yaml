@@ -1,0 +1,13 @@
+﻿services:
+  - type: web
+    name: aspnet-razor-demo
+    runtime: dotnet
+    plan: free
+    branch: main
+    buildCommand: dotnet publish -c Release -o output
+    startCommand: cd output && dotnet YourProjectName.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: DOTNET_VERSION
+        value: 9.0
