@@ -1,16 +1,19 @@
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddHealthChecks();  // ADD THIS
 
 var app = builder.Build();
 
-// FOR REPLIT: Keep it simple
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthorization();
 
+// ADD HEALTH CHECK MIDDLEWARE
+app.MapHealthChecks("/health");  // For Replit monitoring
 app.MapRazorPages();
 
-// REPLIT FIX: Remove PORT env variable, use direct port
+// ADD EXPLICIT ROOT ENDPOINT
+app.MapGet("/", () => {
+    return Results.Redirect("/Index");  // Redirect to your Razor page
+});
+
 app.Run("http://0.0.0.0:5000");
