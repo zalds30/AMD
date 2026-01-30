@@ -1,0 +1,6 @@
+﻿language = "csharp"
+entrypoint = "Program.cs"
+run = "dotnet run --urls http://0.0.0.0:5000"
+
+[env]
+ASPNETCORE_ENVIRONMENT = "Development"

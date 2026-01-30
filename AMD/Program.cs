@@ -5,13 +5,12 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Remove HSTS and HTTPS redirection for Render
-// app.UseHttpsRedirection(); // COMMENT OR REMOVE
+// FOR REPLIT: Keep it simple
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
 
-// Render PORT setup
-app.Run($"http://0.0.0.0:{Environment.GetEnvironmentVariable("PORT") ?? "5000"}");
+// REPLIT FIX: Remove PORT env variable, use direct port
+app.Run("http://0.0.0.0:5000");

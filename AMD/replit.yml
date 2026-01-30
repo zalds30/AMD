@@ -1,0 +1,11 @@
+﻿# replit.yml
+run:
+  command: dotnet run --urls http://0.0.0.0:5000
+
+language:
+  name: csharp
+  entrypoint: Program.cs
+
+features:
+  web: true
+  staticWeb: true
