@@ -1,19 +1,17 @@
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddRazorPages();
-builder.Services.AddHealthChecks();  // ADD THIS
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseRouting();
 
-// ADD HEALTH CHECK MIDDLEWARE
-app.MapHealthChecks("/health");  // For Replit monitoring
-app.MapRazorPages();
+app.MapHealthChecks("/health");
+app.MapHealthChecks("/healthz");
 
-// ADD EXPLICIT ROOT ENDPOINT
-app.MapGet("/", () => {
-    return Results.Redirect("/Index");  // Redirect to your Razor page
-});
+// ITO ANG PAGBABAGO: Gawing Razor Pages ang root
+app.MapRazorPages(); // Ito na mismo ang bahala sa root
 
-app.Run("http://0.0.0.0:5000");
+app.Run();

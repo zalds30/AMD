@@ -235,88 +235,88 @@
             font-size: 0.95rem;
         }
 
-        /* Team Section */
+        /* Team Section - Founder Only */
         .team-section {
             padding: 100px 0;
             background: #f8fafc;
         }
 
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .team-member {
+        .team-single {
+            max-width: 500px;
+            margin: 0 auto;
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
         }
 
-            .team-member:hover {
+            .team-single:hover {
                 transform: translateY(-8px);
-                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                box-shadow: 0 30px 50px rgba(0,0,0,0.15);
             }
 
         .team-photo {
-            height: 250px;
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            height: 300px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            color: #2563eb;
+            font-size: 5rem;
+            color: white;
         }
 
         .team-info {
-            padding: 25px;
+            padding: 30px;
+            text-align: center;
         }
 
         .team-name {
-            font-size: 1.2rem;
+            font-size: 1.8rem;
             color: #0f172a;
-            margin-bottom: 5px;
-            font-weight: 600;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .team-position {
             color: #2563eb;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
         }
 
         .team-bio {
             color: #64748b;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
         }
 
         .team-social {
             display: flex;
-            gap: 10px;
+            gap: 15px;
+            justify-content: center;
         }
 
         .social-link {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             background: #f1f5f9;
-            border-radius: 8px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #64748b;
             text-decoration: none;
             transition: all 0.2s ease;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
             .social-link:hover {
                 background: #2563eb;
                 color: white;
+                transform: translateY(-3px);
             }
 
         /* CTA Section - Simple and effective */
@@ -350,54 +350,48 @@
 
         /* Responsive Design */
         @@media (max-width: 992px) {
-            .story-container
+            .story-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
 
-        {
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .hero-title {
-            font-size: 2.5rem;
-        }
-
+            .hero-title {
+                font-size: 2.5rem;
+            }
         }
 
         @@media (max-width: 768px) {
-            .about-hero
-
-        {
-            min-height: 50vh;
-            padding: 100px 0 60px;
-        }
-
-        .hero-title {
-            font-size: 2rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-        }
-
-        .stats-grid {
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-
-        .cta-buttons {
-            flex-direction: column;
-            align-items: center;
-        }
-
-            .cta-buttons .btn {
-                width: 100%;
-                max-width: 300px;
+            .about-hero {
+                min-height: 50vh;
+                padding: 100px 0 60px;
             }
 
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+                .cta-buttons .btn {
+                    width: 100%;
+                    max-width: 300px;
+                }
         }
 
         /* Animation classes */
@@ -433,7 +427,7 @@
                         <i class="fas fa-book me-2"></i>Our Journey
                     </a>
                     <a href="#team" class="btn btn-secondary-custom">
-                        <i class="fas fa-users me-2"></i>Meet Our Team
+                        <i class="fas fa-users me-2"></i>Meet Our Founder
                     </a>
                 </div>
             </div>
@@ -456,7 +450,7 @@
             <div class="story-content">
                 <h2 class="fade-up">How It All Began</h2>
                 <p class="fade-up">
-                    AMD Audio & Lighting was founded by Joel Delos Reyes in 2012. Starting with just two speakers and a mixer, Alex saw a need for reliable, high-quality audio equipment for local events in Lanao del Norte.
+                    AMD Audio & Lighting was founded by Joel Delos Reyes in 2012. Starting with just two speakers and a mixer, Joel saw a need for reliable, high-quality audio equipment for local events in Lanao del Norte.
                 </p>
                 <p class="fade-up">
                     What started as weekend gigs for weddings and community events quickly grew as word spread about our commitment to quality and customer service. We listened to our clients, invested in better equipment, and expanded our team with like-minded professionals.
@@ -555,73 +549,28 @@
     </div>
 </section>
 
-<!-- Meet the Team -->
+<!-- Meet the Founder (Only) -->
 <section id="team" class="team-section">
     <div class="container">
         <div class="section-header fade-up">
-            <h2 class="section-title">The People Behind the Scenes</h2>
-            <p class="section-subtitle">Meet the passionate professionals who make it all happen</p>
+            <h2 class="section-title">Meet Our Founder</h2>
+            <p class="section-subtitle">The vision behind AMD Audio & Lighting</p>
         </div>
 
-        <div class="team-grid">
-            <div class="team-member fade-up">
-                <div class="team-photo">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <div class="team-info">
-                    <h3 class="team-name">Joel Delos Reyes</h3>
-                    <div class="team-position">Founder & Technical Director</div>
-                    <p class="team-bio">With 15+ years in event production, Alex oversees all technical operations and ensures every event meets our high standards.</p>
-                    <div class="team-social">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
+        <div class="team-single fade-up">
+            <div class="team-photo">
+                <i class="fas fa-user-tie"></i>
             </div>
-
-            <div class="team-member fade-up">
-                <div class="team-photo">
-                    <i class="fas fa-sliders-h"></i>
-                </div>
-                <div class="team-info">
-                    <h3 class="team-name">Unknown</h3>
-                    <div class="team-position">Audio Specialist</div>
-                    <p class="team-bio">Certified audio engineer with expertise in sound system design and live mixing for events of all sizes.</p>
-                    <div class="team-social">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-member fade-up">
-                <div class="team-photo">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-                <div class="team-info">
-                    <h3 class="team-name">Kevin</h3>
-                    <div class="team-position">Lighting Director</div>
-                    <p class="team-bio">Creative lighting designer with background in theater production and concert lighting.</p>
-                    <div class="team-social">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-member fade-up">
-                <div class="team-photo">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <div class="team-info">
-                    <h3 class="team-name">Zaldy Delos Reyes</h3>
-                    <div class="team-position">Client Relations</div>
-                    <p class="team-bio">Manages all bookings and ensures every client receives personalized attention from inquiry to event day.</p>
-                    <div class="team-social">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-viber"></i></a>
-                    </div>
+            <div class="team-info">
+                <h3 class="team-name">Joel Delos Reyes</h3>
+                <div class="team-position">Founder & Technical Director</div>
+                <p class="team-bio">
+                    With over 15 years of experience in event production, Joel started AMD Audio & Lighting from scratch with just two speakers and a dream. Today, he oversees all technical operations and personally ensures that every event meets the company's high standards. His passion for quality service and dedication to client satisfaction remains the driving force behind AMD's success.
+                </p>
+                <div class="team-social">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         </div>

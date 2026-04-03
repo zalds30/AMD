@@ -6,93 +6,325 @@
 
 @section Styles {
     <style>
+        /* ===== HERO ===== */
         .hero-section {
             min-height: 100vh;
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            position: relative;
             display: flex;
             align-items: center;
-            color: white;
-            padding: 6rem 0;
-            position: relative;
             overflow: hidden;
+            background: var(--black);
         }
 
-            .hero-section::before {
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(8,10,14,0.75), rgba(8,10,14,0.92)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            z-index: 0;
+        }
+
+        /* Spotlight beams */
+        .hero-spotlights {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .spotlight {
+            position: absolute;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to top, rgba(245,166,35,0.6), transparent);
+            transform-origin: bottom center;
+            filter: blur(1px);
+        }
+
+            .spotlight:nth-child(1) {
+                left: 15%;
+                height: 65vh;
+                transform: rotate(-18deg);
+                animation: beam1 6s ease-in-out infinite;
+            }
+
+            .spotlight:nth-child(2) {
+                left: 35%;
+                height: 75vh;
+                transform: rotate(-8deg);
+                animation: beam2 7s ease-in-out infinite 1s;
+                background: linear-gradient(to top, rgba(0,212,255,0.5), transparent);
+            }
+
+            .spotlight:nth-child(3) {
+                right: 25%;
+                height: 70vh;
+                transform: rotate(12deg);
+                animation: beam1 8s ease-in-out infinite 2s;
+            }
+
+            .spotlight:nth-child(4) {
+                right: 10%;
+                height: 60vh;
+                transform: rotate(22deg);
+                animation: beam2 5s ease-in-out infinite 0.5s;
+                background: linear-gradient(to top, rgba(0,212,255,0.4), transparent);
+            }
+
+        @@keyframes beam1 {
+            0%, 100%
+
+        {
+            opacity: 0.6;
+            transform: rotate(-18deg) scaleY(1);
+        }
+
+        50% {
+            opacity: 1;
+            transform: rotate(-12deg) scaleY(1.1);
+        }
+
+        }
+        @@keyframes beam2 {
+            0%, 100%
+
+        {
+            opacity: 0.5;
+            transform: rotate(-8deg) scaleY(1);
+        }
+
+        50% {
+            opacity: 0.9;
+            transform: rotate(-4deg) scaleY(1.08);
+        }
+
+        }
+
+        /* Scanline bar at top */
+        .hero-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--amber), var(--cyan), transparent);
+            z-index: 3;
+            animation: scanline-pulse 3s ease-in-out infinite;
+        }
+
+        @@keyframes scanline-pulse {
+            0%, 100%
+
+        {
+            opacity: 0.7;
+        }
+
+        50% {
+            opacity: 1;
+            box-shadow: 0 0 12px var(--amber);
+        }
+
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 7rem 0 5rem;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 1.5rem;
+        }
+
+            .hero-eyebrow .dot {
+                width: 6px;
+                height: 6px;
+                background: var(--amber);
+                border-radius: 50%;
+                animation: pulse 2s ease-in-out infinite;
+            }
+
+        @@keyframes pulse {
+            0%, 100%
+
+        {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.4;
+            transform: scale(0.7);
+        }
+
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            letter-spacing: 0.03em;
+            line-height: 0.95;
+            color: var(--white);
+            margin-bottom: 1.75rem;
+        }
+
+            .hero-title .line-2 {
+                display: block;
+                color: var(--amber);
+                -webkit-text-stroke: 1px var(--amber);
+            }
+
+            .hero-title .line-3 {
+                display: block;
+                color: transparent;
+                -webkit-text-stroke: 1.5px rgba(255,255,255,0.35);
+            }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: rgba(240,244,255,0.65);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3.5rem;
+        }
+
+        /* Stats bar */
+        .hero-stats {
+            display: flex;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 480px;
+            background: rgba(13,17,23,0.7);
+            backdrop-filter: blur(8px);
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+
+            .stat-item:last-child {
+                border-right: none;
+            }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 0.04em;
+            color: var(--amber);
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.35rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Hero visual side */
+        .hero-visual {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 0;
+        }
+
+        .hero-logo-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+            .hero-logo-wrap img {
+                max-width: 340px;
+                width: 100%;
+                filter: drop-shadow(0 0 40px rgba(245,166,35,0.35));
+                animation: float 5s ease-in-out infinite;
+            }
+
+        .hero-logo-ring {
+            position: absolute;
+            inset: -40px;
+            border-radius: 50%;
+            border: 1px solid rgba(245,166,35,0.15);
+            animation: ring-rotate 12s linear infinite;
+        }
+
+            .hero-logo-ring::before {
+                content: '';
+                position: absolute;
+                top: -3px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 6px;
+                height: 6px;
+                background: var(--amber);
+                border-radius: 50%;
+                box-shadow: 0 0 12px var(--amber);
+            }
+
+        @@keyframes ring-rotate {
+            from
+
+        {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services-section {
+            background: var(--dark);
+            position: relative;
+        }
+
+            .services-section::before {
                 content: '';
                 position: absolute;
                 top: 0;
                 left: 0;
                 right: 0;
-                bottom: 0;
-                background: radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.2) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.2) 0%, transparent 50%);
-                pointer-events: none;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--border), transparent);
             }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, #fff 0%, #a5b4fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: #cbd5e1;
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Services Section */
-        .services-section {
-            background: var(--light-gray);
-            position: relative;
-        }
-
         .service-card {
-            background: white;
-            border-radius: 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             padding: 2rem;
             height: 100%;
-            transition: var(--transition-normal);
-            border: 1px solid #e2e8f0;
             position: relative;
             overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease;
         }
 
             .service-card::before {
@@ -100,160 +332,326 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 4px;
-                background: var(--gradient-primary);
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--amber), var(--cyan));
                 transform: scaleX(0);
                 transform-origin: left;
-                transition: transform 0.4s ease;
+                transition: transform 0.4s var(--ease-out);
+            }
+
+            .service-card::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at 50% 0%, rgba(245,166,35,0.05) 0%, transparent 60%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
             }
 
             .service-card:hover {
-                transform: translateY(-8px);
-                box-shadow: var(--shadow-xl);
+                border-color: rgba(245,166,35,0.3);
+                transform: translateY(-6px);
             }
 
                 .service-card:hover::before {
                     transform: scaleX(1);
                 }
 
+                .service-card:hover::after {
+                    opacity: 1;
+                }
+
         .service-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-primary);
-            border-radius: 12px;
+            width: 56px;
+            height: 56px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            color: white;
+            font-size: 1.4rem;
+            color: var(--amber);
+            margin-bottom: 1.25rem;
+            position: relative;
+            z-index: 1;
+            transition: background 0.2s ease, color 0.2s ease;
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: var(--gradient-primary);
-            color: white;
+        .service-card:hover .service-icon {
+            background: var(--amber);
+            color: var(--black);
+            border-color: var(--amber);
+        }
+
+        .service-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+            .service-features li {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.85rem;
+                color: var(--muted);
+                margin-bottom: 0.4rem;
+            }
+
+                .service-features li::before {
+                    content: '';
+                    width: 4px;
+                    height: 4px;
+                    background: var(--amber);
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                }
+
+        /* ===== EQUIPMENT SECTION ===== */
+        .equipment-section {
+            background: var(--black);
+            position: relative;
+        }
+
+        .equipment-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .equipment-card:hover {
+                border-color: rgba(245,166,35,0.35);
+                transform: translateY(-5px);
+            }
+
+        .equipment-image {
+            height: 180px;
+            background: var(--surface-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--amber);
             position: relative;
             overflow: hidden;
+        }
+
+            .equipment-image::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at center, rgba(245,166,35,0.1) 0%, transparent 70%);
+            }
+
+        .equipment-card .p-3 {
+            padding: 1.25rem !important;
+        }
+
+        .equipment-card h5 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            margin-bottom: 0.4rem;
+        }
+
+        .equipment-card p {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+
+        .equipment-price {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            letter-spacing: 0.04em;
+            color: var(--amber);
+        }
+
+        .btn-outline-amber {
+            background: transparent;
+            color: var(--amber);
+            border: 1px solid rgba(245,166,35,0.35);
+            border-radius: 4px;
+            padding: 0.3rem 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+            .btn-outline-amber:hover {
+                background: var(--amber);
+                color: var(--black);
+                border-color: var(--amber);
+            }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
             .cta-section::before {
                 content: '';
                 position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 50%);
-                animation: rotate 20s linear infinite;
+                inset: 0;
+                background: radial-gradient(ellipse at 50% 100%, rgba(245,166,35,0.08) 0%, transparent 60%);
+                pointer-events: none;
             }
 
-        @@keyframes rotate {
-            from {
-                transform: rotate(0deg);
+            .cta-section::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--amber), var(--cyan), transparent);
             }
 
-            to {
-                transform: rotate(360deg);
-            }
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: 0.04em;
+            line-height: 1;
+            color: var(--white);
+            margin-bottom: 1.5rem;
         }
 
-        /* Featured Equipment */
-        .equipment-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition-normal);
-        }
-
-            .equipment-card:hover {
-                transform: translateY(-5px);
-                box-shadow: var(--shadow-xl);
+            .cta-title span {
+                color: var(--amber);
             }
 
-        .equipment-image {
-            height: 200px;
-            background: #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--primary-blue);
+        .cta-text {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 520px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
         }
 
-        .equipment-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-orange);
+        /* ===== RESPONSIVE ===== */
+        @@media (max-width: 992px) {
+            .hero-visual
+
+        {
+            display: none;
         }
 
-        /* Responsive */
+        }
+
         @@media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
+            .hero-stats
+
+        {
+            flex-direction: column;
+            max-width: 100%;
+        }
+
+        .stat-item {
+            border-right: none;
+            border-bottom: 1px solid var(--border);
+        }
+
+            .stat-item:last-child {
+                border-bottom: none;
             }
 
-            .hero-stats {
-                gap: 2rem;
-            }
-
-            .stat-number {
-                font-size: 2rem;
-            }
         }
     </style>
 }
 
 <!-- Hero Section -->
 <section class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-scanline"></div>
+
+    <!-- Spotlight beams -->
+    <div class="hero-spotlights">
+        <div class="spotlight"></div>
+        <div class="spotlight"></div>
+        <div class="spotlight"></div>
+        <div class="spotlight"></div>
+    </div>
+
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 hero-content">
-                <span class="badge bg-gradient-primary mb-3 px-3 py-2 rounded-pill d-inline-flex align-items-center gap-2">
-                    <i class="fas fa-star"></i>
-                    <span>Premium Event Services</span>
-                </span>
+                <div class="hero-eyebrow animate-on-scroll">
+                    <span class="dot"></span>
+                    Premium Event Services — Philippines
+                </div>
 
                 <h1 class="hero-title animate-on-scroll">
-                    Elevate Your Events with Professional
-                    <span class="text-gradient">Audio & Lighting</span>
+                    Elevate<br>
+                    <span class="line-2">Every</span>
+                    <span class="line-3">Event.</span>
                 </h1>
 
                 <p class="hero-subtitle animate-on-scroll">
-                    We provide cutting-edge audio visual solutions for weddings, concerts, corporate events,
-                    and private parties across the Philippines. Your vision, amplified.
+                    Cutting-edge audio & visual solutions for weddings, concerts, corporate events,
+                    and private parties. Your vision, amplified to perfection.
                 </p>
 
-                <div class="d-flex flex-wrap gap-3 animate-on-scroll">
+                <div class="hero-ctas animate-on-scroll">
                     <a asp-page="/Booking" class="btn btn-primary-custom">
-                        <i class="fas fa-calendar-alt me-2"></i>Book Your Event
+                        <i class="fas fa-calendar-alt"></i>Book Your Event
                     </a>
                     <a href="#services" class="btn btn-secondary-custom">
-                        <i class="fas fa-play-circle me-2"></i>View Services
+                        <i class="fas fa-play-circle"></i>View Services
                     </a>
                 </div>
 
-                <div class="hero-stats">
+                <div class="hero-stats animate-on-scroll">
                     <div class="stat-item">
-                        <div class="stat-number">500+</div>
-                        <div class="stat-label">Events Served</div>
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Events Served</span>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">98%</div>
-                        <div class="stat-label">Client Satisfaction</div>
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Satisfaction</span>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support Available</div>
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-6 text-center animate-on-scroll">
-                <div class="float-animation">
-                    <img src="~/images/PNG LOGO.png" alt="AMD Logo" style="max-width: 400px; filter: drop-shadow(0 20px 40px rgba(37, 99, 235, 0.3));">
+            <div class="col-lg-6 hero-visual">
+                <div class="hero-logo-wrap">
+                    <div class="hero-logo-ring"></div>
+                    <img src="~/images/PNG LOGO.png" alt="AMD Logo">
                 </div>
             </div>
         </div>
@@ -264,6 +662,7 @@
 <section id="services" class="services-section section-padding">
     <div class="container">
         <div class="text-center mb-5">
+            <div class="section-label animate-on-scroll">What We Offer</div>
             <h2 class="section-title animate-on-scroll">Our Premium Services</h2>
             <p class="section-subtitle animate-on-scroll">
                 Comprehensive audio-visual solutions tailored to make your event extraordinary
@@ -273,12 +672,10 @@
         <div class="row g-4">
             <div class="col-lg-4 col-md-6">
                 <div class="service-card animate-on-scroll">
-                    <div class="service-icon">
-                        <i class="fas fa-volume-up"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-volume-up"></i></div>
                     <h4>Professional Audio Systems</h4>
                     <p>Crystal clear sound reinforcement for any venue size. From intimate gatherings to large concerts.</p>
-                    <ul class="mt-3" style="padding-left: 1.2rem; color: var(--medium-gray);">
+                    <ul class="service-features">
                         <li>Line Array Systems</li>
                         <li>Wireless Microphones</li>
                         <li>Digital Mixing Consoles</li>
@@ -288,12 +685,10 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="service-card animate-on-scroll">
-                    <div class="service-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
                     <h4>Advanced Lighting Design</h4>
                     <p>Dynamic lighting setups that create the perfect atmosphere and wow-factor for your event.</p>
-                    <ul class="mt-3" style="padding-left: 1.2rem; color: var(--medium-gray);">
+                    <ul class="service-features">
                         <li>LED Stage Lighting</li>
                         <li>Moving Head Lights</li>
                         <li>Atmospheric Effects</li>
@@ -303,12 +698,10 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="service-card animate-on-scroll">
-                    <div class="service-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-headset"></i></div>
                     <h4>Event Technical Support</h4>
                     <p>Professional technicians and engineers ensuring flawless execution from setup to teardown.</p>
-                    <ul class="mt-3" style="padding-left: 1.2rem; color: var(--medium-gray);">
+                    <ul class="service-features">
                         <li>On-site Technicians</li>
                         <li>System Design</li>
                         <li>Troubleshooting</li>
@@ -318,9 +711,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="service-card animate-on-scroll">
-                    <div class="service-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-video"></i></div>
                     <h4>Live Streaming Production</h4>
                     <p>Professional multi-camera setups for hybrid events with broadcast-quality production.</p>
                 </div>
@@ -328,9 +719,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="service-card animate-on-scroll">
-                    <div class="service-icon">
-                        <i class="fas fa-music"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-music"></i></div>
                     <h4>DJ & Entertainment Services</h4>
                     <p>Professional DJs with extensive music libraries and MC services to keep your event lively.</p>
                 </div>
@@ -338,9 +727,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="service-card animate-on-scroll">
-                    <div class="service-icon">
-                        <i class="fas fa-shipping-fast"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-truck-loading"></i></div>
                     <h4>Full Event Production</h4>
                     <p>End-to-end event production including stage design, rigging, and technical coordination.</p>
                 </div>
@@ -350,9 +737,10 @@
 </section>
 
 <!-- Featured Equipment -->
-<section class="section-padding">
+<section class="equipment-section section-padding">
     <div class="container">
         <div class="text-center mb-5">
+            <div class="section-label animate-on-scroll">Available For Rental</div>
             <h2 class="section-title animate-on-scroll">Featured Equipment</h2>
             <p class="section-subtitle animate-on-scroll">
                 Top-of-the-line gear available for rental
@@ -362,15 +750,13 @@
         <div class="row g-4">
             <div class="col-lg-3 col-md-6">
                 <div class="equipment-card animate-on-scroll">
-                    <div class="equipment-image">
-                        <i class="fas fa-volume-up"></i>
-                    </div>
+                    <div class="equipment-image"><i class="fas fa-volume-up"></i></div>
                     <div class="p-3">
                         <h5>Line Array Speakers</h5>
                         <p>Professional sound systems for large venues</p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="equipment-price">₱3,500/day</span>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
+                            <span class="equipment-price">₱3,500<small style="font-size:0.65rem;color:var(--muted);font-family:var(--font-body)">/day</small></span>
+                            <a href="#" class="btn-outline-amber">Details</a>
                         </div>
                     </div>
                 </div>
@@ -378,15 +764,13 @@
 
             <div class="col-lg-3 col-md-6">
                 <div class="equipment-card animate-on-scroll">
-                    <div class="equipment-image">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
+                    <div class="equipment-image"><i class="fas fa-lightbulb"></i></div>
                     <div class="p-3">
                         <h5>Moving Head Lights</h5>
                         <p>Dynamic lighting with full color mixing</p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="equipment-price">₱2,800/day</span>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
+                            <span class="equipment-price">₱2,800<small style="font-size:0.65rem;color:var(--muted);font-family:var(--font-body)">/day</small></span>
+                            <a href="#" class="btn-outline-amber">Details</a>
                         </div>
                     </div>
                 </div>
@@ -394,15 +778,13 @@
 
             <div class="col-lg-3 col-md-6">
                 <div class="equipment-card animate-on-scroll">
-                    <div class="equipment-image">
-                        <i class="fas fa-sliders-h"></i>
-                    </div>
+                    <div class="equipment-image"><i class="fas fa-sliders-h"></i></div>
                     <div class="p-3">
                         <h5>Digital Mixer</h5>
                         <p>32-channel mixing console with effects</p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="equipment-price">₱2,200/day</span>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
+                            <span class="equipment-price">₱2,200<small style="font-size:0.65rem;color:var(--muted);font-family:var(--font-body)">/day</small></span>
+                            <a href="#" class="btn-outline-amber">Details</a>
                         </div>
                     </div>
                 </div>
@@ -410,15 +792,13 @@
 
             <div class="col-lg-3 col-md-6">
                 <div class="equipment-card animate-on-scroll">
-                    <div class="equipment-image">
-                        <i class="fas fa-microphone-alt"></i>
-                    </div>
+                    <div class="equipment-image"><i class="fas fa-microphone-alt"></i></div>
                     <div class="p-3">
                         <h5>Wireless Mics</h5>
                         <p>Professional wireless microphone systems</p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="equipment-price">₱1,500/day</span>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
+                            <span class="equipment-price">₱1,500<small style="font-size:0.65rem;color:var(--muted);font-family:var(--font-body)">/day</small></span>
+                            <a href="#" class="btn-outline-amber">Details</a>
                         </div>
                     </div>
                 </div>
@@ -432,17 +812,20 @@
     <div class="container position-relative" style="z-index: 2;">
         <div class="row justify-content-center text-center">
             <div class="col-lg-8">
-                <h2 class="mb-4 animate-on-scroll">Ready to Make Your Event Unforgettable?</h2>
-                <p class="mb-4 animate-on-scroll" style="opacity: 0.9;">
+                <div class="section-label d-inline-flex animate-on-scroll" style="justify-content:center;">Get In Touch</div>
+                <h2 class="cta-title animate-on-scroll">
+                    Ready to Make Your Event<br><span>Unforgettable?</span>
+                </h2>
+                <p class="cta-text animate-on-scroll">
                     Contact us today for a free consultation and quote. Our team will work with you to
                     create the perfect audio-visual experience for your special occasion.
                 </p>
                 <div class="d-flex flex-wrap justify-content-center gap-3 animate-on-scroll">
-                    <a asp-page="/Booking" class="btn btn-light btn-lg px-4">
-                        <i class="fas fa-calendar-check me-2"></i>Book Now
+                    <a asp-page="/Booking" class="btn btn-primary-custom">
+                        <i class="fas fa-calendar-check"></i>Book Now
                     </a>
-                    <a asp-page="/Contact" class="btn btn-outline-light btn-lg px-4">
-                        <i class="fas fa-phone-alt me-2"></i>Contact Us
+                    <a asp-page="/Contact" class="btn btn-secondary-custom">
+                        <i class="fas fa-phone-alt"></i>Contact Us
                     </a>
                 </div>
             </div>
@@ -452,29 +835,33 @@
 
 @section Scripts {
     <script>
-        // Add custom animations for this page
-        $(document).ready(function() {
-            // Initialize animation classes
-            $('.animate-on-scroll').each(function() {
-                $(this).addClass('opacity-0');
-            });
+        // Counter animation for stats
+        function animateCounter(el) {
+            const target = el.textContent;
+            const num = parseFloat(target);
+            if (isNaN(num)) return;
+            const suffix = target.replace(/[0-9.]/g, '');
+            let start = 0;
+            const duration = 1200;
+            const step = (timestamp) => {
+                if (!start) start = timestamp;
+                const progress = Math.min((timestamp - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(eased * num) + suffix;
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }
 
-            // Custom animation on scroll
-            $(window).on('scroll', function() {
-                $('.animate-on-scroll').each(function() {
-                    var elementTop = $(this).offset().top;
-                    var elementBottom = elementTop + $(this).outerHeight();
-                    var viewportTop = $(window).scrollTop();
-                    var viewportBottom = viewportTop + $(window).height();
-
-                    if (elementBottom > viewportTop && elementTop < (viewportBottom - 100)) {
-                        $(this).removeClass('opacity-0').addClass('animate__animated animate__fadeInUp');
-                    }
-                });
-            });
-
-            // Trigger initial animation check
-            $(window).trigger('scroll');
-        });
+        let statsAnimated = false;
+        $(window).on('scroll', function() {
+            if (!statsAnimated) {
+                const statsEl = $('.hero-stats');
+                if (statsEl.length && statsEl.offset().top < $(window).scrollTop() + $(window).height()) {
+                    statsAnimated = true;
+                    $('.stat-number').each(function() { animateCounter(this); });
+                }
+            }
+        }).trigger('scroll');
     </script>
 }

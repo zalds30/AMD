@@ -1,46 +1,496 @@
 ﻿@page
 @{
     ViewData["Title"] = "Booking Submitted Successfully";
+    var messengerLink = TempData["MessengerLink"] as string;
+    var bookingName = TempData["BookingName"] as string;
+    var bookingDate = TempData["BookingDate"] as string;
+    var bookingMessage = TempData["BookingMessage"] as string;
 }
 
-<div class="container text-center py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <div class="success-animation mb-4">
-                <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AMD Audio & Lighting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .success-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .success-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            animation: checkmark 0.5s ease-in-out 0.5s both;
+        }
+
+        @@keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .success-header p {
+            opacity: 0.95;
+            font-size: 16px;
+        }
+
+        .success-body {
+            padding: 40px 30px;
+        }
+
+        .info-alert {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .info-alert h4 {
+            color: #2e7d32;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .info-alert p {
+            color: #1b5e20;
+            margin: 0;
+        }
+
+        .messenger-card {
+            background: linear-gradient(135deg, #0084ff 0%, #0063cc 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            color: white;
+            text-align: center;
+        }
+
+        .messenger-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .messenger-card p {
+            opacity: 0.95;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .btn-messenger {
+            background: white;
+            color: #0084ff;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-messenger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-copy {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .btn-copy:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-copy.copied {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .details-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .details-card h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .booking-details {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+            border: 1px solid #e0e0e0;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        .next-steps {
+            background: #fff3e0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .next-steps h4 {
+            color: #e65100;
+            margin-bottom: 15px;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .next-steps li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ffe0b2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .next-steps li:last-child {
+            border-bottom: none;
+        }
+
+        .next-steps li i {
+            color: #ff9800;
+            width: 25px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-home {
+            flex: 1;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-home:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-call {
+            flex: 1;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-call:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+        }
+
+        @@media (max-width: 480px) {
+            .success-body {
+                padding: 25px 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-card">
+            <div class="success-header">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>Booking Request Submitted!</h1>
+                <p>Thank you for choosing AMD Audio & Lighting</p>
             </div>
 
-            <h1 class="display-5 fw-bold mb-4">Booking Request Submitted!</h1>
+            <div class="success-body">
+                <!-- Success Alert -->
+                <div class="info-alert">
+                    <h4>
+                        <i class="fas fa-smile-wink"></i> 
+                        Thank You, @(!string.IsNullOrEmpty(bookingName) ? bookingName : "Valued Customer")!
+                    </h4>
+                    <p>
+                        We have received your booking request for <strong>@(!string.IsNullOrEmpty(bookingDate) ? bookingDate : "your event")</strong>.
+                        Our team will contact you within 24 hours.
+                    </p>
+                </div>
 
-            <div class="alert alert-success border-0 bg-success bg-opacity-10 mb-4">
-                <h4 class="alert-heading">Thank You!</h4>
-                <p class="mb-0">We have received your booking request and will contact you within 24 hours to discuss your event details and provide a customized quote.</p>
-            </div>
+                <!-- Messenger Card -->
+                <div class="messenger-card">
+                    <i class="fab fa-facebook-messenger" style="font-size: 48px; margin-bottom: 15px;"></i>
+                    <h3>Message us on Messenger</h3>
+                    <p>Get faster response by sending your booking details directly to our Facebook Messenger</p>
+                    
+                    <!-- Copy Details Button -->
+                    <button class="btn-copy" id="copyBtn" onclick="copyBookingDetails()">
+                        <i class="fas fa-copy"></i>
+                        <span id="copyText">Copy Booking Details</span>
+                    </button>
+                    
+                    <!-- Messenger Link Button -->
+                    @if (!string.IsNullOrEmpty(messengerLink))
+                    {
+                        <a href="@messengerLink" class="btn-messenger" target="_blank">
+                            <i class="fab fa-facebook-messenger"></i>
+                            Open Messenger
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="https://m.me/996504260221621" class="btn-messenger" target="_blank">
+                            <i class="fab fa-facebook-messenger"></i>
+                            Open Messenger
+                        </a>
+                    }
+                    
+                    <p style="font-size: 12px; margin-top: 15px; opacity: 0.8;">
+                        <i class="fas fa-info-circle"></i> 
+                        Click "Copy Booking Details" then paste (Ctrl+V) in Messenger
+                    </p>
+                </div>
 
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">What Happens Next?</h5>
-                    <ul class="list-unstyled text-start">
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> We'll review your requirements</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Prepare a customized quote</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Contact you to discuss details</li>
-                        <li><i class="fas fa-check text-success me-2"></i> Confirm booking and schedule</li>
+                <!-- Booking Details Preview -->
+                <div class="details-card">
+                    <h4>
+                        <i class="fas fa-receipt"></i>
+                        Your Booking Summary
+                    </h4>
+                    <div class="booking-details" id="bookingDetails">
+                        @if (!string.IsNullOrEmpty(bookingMessage))
+                        {
+                            @bookingMessage
+                        }
+                        else
+                        {
+                            <text>
+Name: @bookingName
+Status: Pending
+Submitted: @DateTime.Now.ToString("MMMM dd, yyyy hh:mm tt")
+                            </text>
+                        }
+                    </div>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="next-steps">
+                    <h4>
+                        <i class="fas fa-clock"></i>
+                        What Happens Next?
+                    </h4>
+                    <ul>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Our team reviews your requirements (within 2-4 hours)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>We prepare a customized quote based on your needs</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>We contact you to discuss details and answer questions</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-handshake"></i>
+                            <span>Confirm booking, schedule, and finalize arrangements</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Event day - we make your event memorable!</span>
+                        </li>
                     </ul>
                 </div>
-            </div>
 
-            <div class="d-grid gap-3 d-md-flex justify-content-md-center">
-                <a asp-page="/Index" class="btn btn-outline-primary">
-                    <i class="fas fa-home me-2"></i>Back to Home
-                </a>
-                <a asp-page="/Contact" class="btn btn-primary-custom">
-                    <i class="fas fa-phone-alt me-2"></i>Contact Us Now
-                </a>
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="/" class="btn-home">
+                        <i class="fas fa-home"></i>
+                        Back to Home
+                    </a>
+                    <a href="tel:+639265684372" class="btn-call">
+                        <i class="fas fa-phone-alt"></i>
+                        Call Us Now
+                    </a>
+                </div>
             </div>
+        </div>
 
-            <p class="text-muted mt-4">
-                For urgent inquiries, call us directly: <strong>+63 926 568 4372</strong>
-            </p>
+        <div class="footer-note">
+            <i class="fas fa-envelope"></i> amdaudioandlighting@gmail.com &nbsp;|&nbsp;
+            <i class="fas fa-phone"></i> +63 926 568 4372
         </div>
     </div>
-</div>
+
+    <script>
+        function copyBookingDetails() {
+            // Get the booking details text
+            const detailsElement = document.getElementById('bookingDetails');
+            let detailsText = detailsElement.innerText || detailsElement.textContent;
+            
+            // Clean up the text
+            detailsText = detailsText.trim();
+            
+            // Add header and footer
+            const fullMessage = `📋 AMD AUDIO & LIGHTING BOOKING REQUEST\n\n${detailsText}\n\n---\nPlease check my booking details. Thank you! 🎉`;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(fullMessage).then(function() {
+                // Show success feedback
+                const copyBtn = document.getElementById('copyBtn');
+                const copySpan = document.getElementById('copyText');
+                const originalText = copySpan.innerHTML;
+                
+                copySpan.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                copyBtn.classList.add('copied');
+                
+                // Reset after 2 seconds
+                setTimeout(function() {
+                    copySpan.innerHTML = originalText;
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+                
+                // Optional: Show additional alert
+                // alert('✓ Booking details copied!\n\nNow click "Open Messenger" and paste (Ctrl+V) to send us your booking.');
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                alert('Please manually copy your booking details.');
+            });
+        }
+        
+        // Optional: Auto-copy when page loads (uncomment if desired)
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                copyBookingDetails();
+            }, 1000);
+        });
+       
+    </script>
+</body>
+</html>

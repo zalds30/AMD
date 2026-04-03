@@ -50,6 +50,9 @@ namespace AMD.Models
         [Display(Name = "Required Services")]
         public List<string> RequiredServices { get; set; } = new List<string>();
 
+        // ✅ ADD THIS - For checkbox binding
+        public Dictionary<string, bool> SelectedServices { get; set; } = new Dictionary<string, bool>();
+
         [Display(Name = "Budget Range")]
         public string BudgetRange { get; set; }
 
@@ -73,7 +76,6 @@ namespace AMD.Models
         public string Status { get; set; } = "Pending";
     }
 
-    // Custom Validation Attribute for future date
     public class FutureDateAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
@@ -86,71 +88,52 @@ namespace AMD.Models
         }
     }
 
-    // Model for Equipment Rental
     public class EquipmentRental
     {
         public int Id { get; set; }
-
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
-
         [Required]
         [StringLength(50)]
         public string Category { get; set; }
-
         [Required]
         [StringLength(500)]
         public string Description { get; set; }
-
         [Range(0.01, 100000)]
         [DataType(DataType.Currency)]
         public decimal DailyRate { get; set; }
-
         [Range(0.01, 100000)]
         [DataType(DataType.Currency)]
         public decimal WeeklyRate { get; set; }
-
         public int QuantityAvailable { get; set; }
-
         [StringLength(50)]
         public string Condition { get; set; } = "Excellent";
-
         [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; }
-
         public DateTime LastMaintenance { get; set; }
         public bool IsActive { get; set; } = true;
     }
 
-    // Model for Contact Form
     public class ContactMessage
     {
         public int Id { get; set; }
-
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
-
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
         [Phone]
         public string Phone { get; set; }
-
         [Required]
         [StringLength(200)]
         public string Subject { get; set; }
-
         [Required]
         [StringLength(2000)]
         public string Message { get; set; }
-
         public DateTime SubmittedAt { get; set; } = DateTime.Now;
-
         public bool IsRead { get; set; } = false;
-
         public string Status { get; set; } = "New";
     }
 }

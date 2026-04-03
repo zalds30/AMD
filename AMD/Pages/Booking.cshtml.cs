@@ -1,7 +1,6 @@
 ﻿using AMD.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
 
 namespace AMD.Pages
 {
@@ -10,21 +9,12 @@ namespace AMD.Pages
         [BindProperty]
         public BookingRequest Booking { get; set; }
 
-        // Available event types for dropdown
         public List<string> EventTypes { get; set; } = new List<string>
         {
-            "Wedding",
-            "Birthday Party",
-            "Corporate Event",
-            "Concert/Show",
-            "Private Party",
-            "Conference",
-            "School Event",
-            "Church Event",
-            "Other"
+            "Wedding", "Birthday Party", "Corporate Event", "Concert/Show",
+            "Private Party", "Conference", "School Event", "Church Event", "Other"
         };
 
-        // Available services for checkboxes
         public List<ServiceItem> AvailableServices { get; set; } = new List<ServiceItem>
         {
             new ServiceItem { Id = "audio", Name = "Audio System", Icon = "fa-volume-up" },
@@ -36,7 +26,6 @@ namespace AMD.Pages
             new ServiceItem { Id = "backline", Name = "Backline Equipment", Icon = "fa-guitar" }
         };
 
-        // Budget ranges for dropdown
         public List<BudgetRange> BudgetRanges { get; set; } = new List<BudgetRange>
         {
             new BudgetRange { Value = "5000-15000", Display = "₱5,000 - ₱15,000" },
@@ -47,58 +36,109 @@ namespace AMD.Pages
             new BudgetRange { Value = "custom", Display = "Custom Budget" }
         };
 
+        public List<string> ReferralSources { get; set; } = new List<string>
+        {
+            "Facebook", "Instagram", "Friend/Family Referral",
+            "Google Search", "Previous Customer", "Flyer/Poster", "Other"
+        };
+
         public void OnGet()
         {
-            // Initialize with today's date + 7 days as default
             Booking = new BookingRequest
             {
                 EventDate = DateTime.Today.AddDays(7),
-                EventTime = TimeSpan.FromHours(18) // Default 6:00 PM
+                EventTime = TimeSpan.FromHours(18),
+                NeedsSetupTime = true,
+                NeedsSoundCheck = true,
+                Status = "Pending"
             };
+
+            // Initialize SelectedServices dictionary
+            foreach (var service in AvailableServices)
+            {
+                Booking.SelectedServices[service.Name] = false;
+            }
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
+            // Build RequiredServices list from SelectedServices
+            Booking.RequiredServices = Booking.SelectedServices
+                .Where(kvp => kvp.Value)
+                .Select(kvp => kvp.Key)
+                .ToList();
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            try
+            // ✅ FIXED: Safe way to format TimeSpan to time string
+            string eventTimeString = "TBD";
+            if (Booking.EventTime.HasValue)
             {
-                // Here you would save to database, send emails, etc.
-                // For now, we'll just show a success message
-
-                TempData["SuccessMessage"] = $"Thank you {Booking.FullName}! Your booking request has been submitted. We'll contact you within 24 hours.";
-
-                // In a real application:
-                // 1. Save to database
-                // 2. Send confirmation email
-                // 3. Send notification to admin
-                // 4. Generate quote if needed
-
-                // Log the booking
-                Console.WriteLine($"New booking: {Booking.FullName} - {Booking.EventType} - {Booking.EventDate:d}");
-
-                // Redirect to confirmation page or show success message
-                return RedirectToPage("/BookingSuccess", new
+                try
                 {
-                    name = Booking.FullName,
-                    date = Booking.EventDate.ToString("yyyy-MM-dd")
-                });
+                    // Convert TimeSpan to DateTime for proper time formatting
+                    var timeOfDay = DateTime.Today.Add(Booking.EventTime.Value);
+                    eventTimeString = timeOfDay.ToString("hh:mm tt");
+                }
+                catch
+                {
+                    eventTimeString = Booking.EventTime.Value.ToString(@"hh\:mm");
+                }
+            }
 
-                // Or stay on page with success message:
-                // return Page();
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"An error occurred: {ex.Message}");
-                return Page();
-            }
+            // Save to TempData
+            TempData["MessengerLink"] = "https://m.me/996504260221621";
+            TempData["BookingName"] = Booking.FullName;
+            TempData["BookingDate"] = Booking.EventDate.ToString("MMMM dd, yyyy");
+
+            var requiredServices = Booking.RequiredServices != null && Booking.RequiredServices.Any()
+                ? string.Join(", ", Booking.RequiredServices)
+                : "None";
+
+            // ✅ FIXED: Removed problematic TimeSpan formatting
+            TempData["BookingMessage"] = $@"━━━━━━━━━━━━━━━━━━━━
+📝 CUSTOMER DETAILS
+━━━━━━━━━━━━━━━━━━━━
+Name: {Booking.FullName}
+Phone: {Booking.Phone}
+Email: {Booking.Email}
+
+━━━━━━━━━━━━━━━━━━━━
+🎉 EVENT DETAILS
+━━━━━━━━━━━━━━━━━━━━
+Event: {Booking.EventType}
+Date: {Booking.EventDate:MMMM dd, yyyy}
+Time: {eventTimeString}
+Location: {Booking.Location}
+Guests: {(Booking.EstimatedGuests.HasValue ? Booking.EstimatedGuests.Value.ToString("N0") : "Not specified")}
+Duration: {(Booking.DurationHours.HasValue ? Booking.DurationHours.Value + " hours" : "Not specified")}
+
+━━━━━━━━━━━━━━━━━━━━
+💰 BUDGET & SERVICES
+━━━━━━━━━━━━━━━━━━━━
+Budget: {(string.IsNullOrEmpty(Booking.BudgetRange) ? "Not specified" : Booking.BudgetRange)}
+Services: {requiredServices}
+
+━━━━━━━━━━━━━━━━━━━━
+📝 ADDITIONAL DETAILS
+━━━━━━━━━━━━━━━━━━━━
+{(!string.IsNullOrEmpty(Booking.AdditionalDetails) ? Booking.AdditionalDetails : "No additional details provided")}
+
+━━━━━━━━━━━━━━━━━━━━
+📢 Referral Source: {(string.IsNullOrEmpty(Booking.ReferralSource) ? "Not specified" : Booking.ReferralSource)}
+⏰ Setup Time Required: {(Booking.NeedsSetupTime ? "Yes" : "No")}
+🎵 Sound Check Required: {(Booking.NeedsSoundCheck ? "Yes" : "No")}
+
+━━━━━━━━━━━━━━━━━━━━
+⏰ Submitted: {DateTime.Now:MMMM dd, yyyy hh:mm tt}";
+
+            return RedirectToPage("/BookingSuccess");
         }
     }
 
-    // Helper classes
     public class ServiceItem
     {
         public string Id { get; set; }
