@@ -4,30 +4,487 @@
     ViewData["Title"] = "Contact - AMD Audio & Lighting";
 }
 
-<div class="page-header">
+@section Styles {
+    <style>
+        /* ===== HERO ===== */
+        .contact-hero {
+            background: var(--dark);
+            border-bottom: 1px solid var(--border);
+            padding: 5rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .contact-hero::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--amber) 40%, var(--cyan) 60%, transparent);
+            }
+
+            .contact-hero::after {
+                content: '';
+                position: absolute;
+                top: -80px;
+                right: -80px;
+                width: 450px;
+                height: 450px;
+                background: radial-gradient(circle, rgba(0,212,255,0.05) 0%, transparent 70%);
+                pointer-events: none;
+            }
+
+        .page-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 1rem;
+        }
+
+            .page-eyebrow::before {
+                content: '';
+                width: 20px;
+                height: 1px;
+                background: var(--amber);
+            }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            letter-spacing: 0.04em;
+            line-height: 1;
+            color: var(--white);
+            margin-bottom: 1.25rem;
+        }
+
+            .page-title span {
+                color: var(--amber);
+            }
+
+        .page-desc {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 520px;
+            line-height: 1.8;
+        }
+
+        /* ===== MAIN SECTION ===== */
+        .contact-section {
+            background: var(--black);
+            padding: 5rem 0 6rem;
+        }
+
+        /* ===== CONTACT CARDS ===== */
+        .contact-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+            .contact-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--amber), var(--cyan));
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.4s ease;
+            }
+
+            .contact-card:hover {
+                border-color: rgba(245,166,35,0.3);
+                transform: translateY(-5px);
+                text-decoration: none;
+            }
+
+                .contact-card:hover::before {
+                    transform: scaleX(1);
+                }
+
+        .contact-card-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--amber);
+            margin-bottom: 1.25rem;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .contact-card:hover .contact-card-icon {
+            background: var(--amber);
+            color: var(--black);
+            border-color: var(--amber);
+        }
+
+        .contact-card-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 0.4rem;
+        }
+
+        .contact-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* ===== INFO PANEL ===== */
+        .info-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .info-panel-header {
+            background: var(--surface-2);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 1.5rem;
+            position: relative;
+        }
+
+            .info-panel-header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--amber), var(--cyan));
+            }
+
+            .info-panel-header h3 {
+                font-family: var(--font-display);
+                font-size: 1.1rem;
+                letter-spacing: 0.06em;
+                color: var(--white);
+                margin: 0;
+            }
+
+        .info-panel-body {
+            padding: 1.5rem;
+        }
+
+        /* ===== HOURS TABLE ===== */
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+        }
+
+            .hours-row:last-child {
+                border-bottom: none;
+            }
+
+        .hours-day {
+            color: var(--muted);
+        }
+
+        .hours-time {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+            .hours-time.highlight {
+                color: var(--cyan);
+            }
+
+        /* ===== MAP PLACEHOLDER ===== */
+        .map-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.75rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+            .map-box i {
+                font-size: 2.5rem;
+                color: var(--amber);
+                opacity: 0.4;
+            }
+
+            .map-box iframe {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+                filter: grayscale(1) invert(0.85) contrast(0.9);
+            }
+
+        /* ===== SOCIAL ROW ===== */
+        .social-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+            .social-btn:hover {
+                border-color: rgba(245,166,35,0.4);
+                color: var(--amber);
+                background: var(--surface);
+            }
+
+        /* ===== CTA ===== */
+        .contact-cta {
+            background: var(--dark);
+            border-top: 1px solid var(--border);
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .contact-cta::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--amber) 40%, var(--cyan) 60%, transparent);
+            }
+
+            .contact-cta::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(ellipse at 50% 0%, rgba(245,166,35,0.06) 0%, transparent 60%);
+                pointer-events: none;
+            }
+
+            .contact-cta h2 {
+                font-family: var(--font-display);
+                font-size: clamp(2.2rem, 5vw, 3.8rem);
+                letter-spacing: 0.04em;
+                color: var(--white);
+                margin-bottom: 1rem;
+            }
+
+                .contact-cta h2 span {
+                    color: var(--amber);
+                }
+
+            .contact-cta p {
+                color: var(--muted);
+                max-width: 480px;
+                margin: 0 auto 2.5rem;
+                line-height: 1.8;
+            }
+
+        /* ===== RESPONSIVE ===== */
+        @@media (max-width: 768px) {
+            .social-row
+
+        {
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            flex: 1 1 calc(50% - 0.375rem);
+        }
+
+        }
+    </style>
+}
+
+<!-- Hero -->
+<section class="contact-hero">
     <div class="container">
-        <h1 class="display-4">Contact Us</h1>
+        <div class="page-eyebrow animate-on-scroll">Reach Out</div>
+        <h1 class="page-title animate-on-scroll">Contact<br><span>Us</span></h1>
+        <p class="page-desc animate-on-scroll">
+            Have a question or ready to book? We'd love to hear from you.
+            Reach out through any of the channels below and we'll get back to you promptly.
+        </p>
     </div>
-</div>
+</section>
 
-<div class="container py-5">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Contact Information</h4>
-                    <p><i class="fas fa-phone text-primary me-2"></i> <strong>Phone:</strong> +63 9265684372</p>
-                    <p><i class="fas fa-envelope text-primary me-2"></i> <strong>Email:</strong> amdaudioandlighting@gmail.com</p>
-                    <p><i class="fas fa-map-marker-alt text-primary me-2"></i> <strong>Address:</strong> Lanipao Lala, Lanao del Norte, Philippines</p>
+<!-- Main Content -->
+<section class="contact-section">
+    <div class="container">
 
-                    <hr class="my-4">
+        <!-- Contact Method Cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <a href="tel:+639265684372" class="contact-card animate-on-scroll">
+                    <div class="contact-card-icon"><i class="fas fa-phone"></i></div>
+                    <div class="contact-card-label">Call Us</div>
+                    <h3>+63 926 568 4372</h3>
+                    <p>Available Mon–Sat 8AM–10PM. For urgent events, we're reachable 24/7.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="mailto:amdaudioandlighting@gmail.com" class="contact-card animate-on-scroll">
+                    <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-card-label">Email Us</div>
+                    <h3>Send a Message</h3>
+                    <p>amdaudioandlighting@gmail.com — we respond within 24 hours, usually much sooner.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="https://facebook.com" target="_blank" class="contact-card animate-on-scroll">
+                    <div class="contact-card-icon"><i class="fab fa-facebook-messenger"></i></div>
+                    <div class="contact-card-label">Messenger / Viber</div>
+                    <h3>Chat With Us</h3>
+                    <p>Prefer to chat? Send us a message on Facebook Messenger or Viber anytime.</p>
+                </a>
+            </div>
+        </div>
 
-                    <h5 class="mb-3">Business Hours</h5>
-                    <p><i class="fas fa-clock text-primary me-2"></i> Monday - Friday: 8:00 AM - 8:00 PM</p>
-                    <p><i class="fas fa-clock text-primary me-2"></i> Saturday: 8:00 AM - 10:00 PM</p>
-                    <p><i class="fas fa-clock text-primary me-2"></i> Sunday: 10:00 AM - 6:00 PM</p>
+        <!-- Info + Hours + Map -->
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <!-- Business Hours -->
+                <div class="info-panel animate-on-scroll mb-4">
+                    <div class="info-panel-header">
+                        <h3><i class="fas fa-clock me-2" style="color:var(--amber);font-size:0.9rem;"></i>Business Hours</h3>
+                    </div>
+                    <div class="info-panel-body">
+                        <div class="hours-row">
+                            <span class="hours-day">Monday – Friday</span>
+                            <span class="hours-time">8:00 AM – 8:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="hours-day">Saturday</span>
+                            <span class="hours-time">8:00 AM – 10:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="hours-day">Sunday</span>
+                            <span class="hours-time">10:00 AM – 6:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="hours-day">Emergency Events</span>
+                            <span class="hours-time highlight"><i class="fas fa-bolt me-1"></i>24/7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <div class="info-panel animate-on-scroll">
+                    <div class="info-panel-header">
+                        <h3><i class="fas fa-map-marker-alt me-2" style="color:var(--amber);font-size:0.9rem;"></i>Our Location</h3>
+                    </div>
+                    <div class="info-panel-body">
+                        <p style="color:var(--muted); font-size:0.9rem; line-height:1.7; margin-bottom:1.25rem;">
+                            Lanipao Lala, Lanao del Norte<br>Philippines
+                        </p>
+                        <div class="social-row">
+                            <a href="https://www.facebook.com/profile.php?id=61577457801712" target="_blank" class="social-btn">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </a>
+                        @*     <a href="https://instagram.com" target="_blank" class="social-btn">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </a>
+                            <a href="https://viber.com" target="_blank" class="social-btn">
+                                <i class="fab fa-viber"></i> Viber
+                            </a>
+                            <a href="https://youtube.com" target="_blank" class="social-btn">
+                                <i class="fab fa-youtube"></i> YouTube
+                            </a> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <!-- Map -->
+                <div class="map-box animate-on-scroll">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15805.591881632536!2d123.76522224792004!3d7.9577602730684545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32544aa19957fae5%3A0x56234ff220e64f87!2sLanipao%2C%20Lala%2C%20Lanao%20del%20Norte!5e0!3m2!1sen!2sph!4v1776344256826!5m2!1sen!2sph"
+                            width="100%"
+                            height="280"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Lanipao Lala, Lanao del Norte</span>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- CTA -->
+<section class="contact-cta">
+    <div class="container position-relative" style="z-index:2;">
+        <div class="section-label animate-on-scroll" style="justify-content:center;">Ready?</div>
+        <h2 class="animate-on-scroll">Let's Make Your<br><span>Event Happen</span></h2>
+        <p class="animate-on-scroll">
+            Don't wait — book now to secure your date. Our schedule fills up fast,
+            especially on weekends and holidays.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3 animate-on-scroll">
+            <a asp-page="/Booking" class="btn btn-primary-custom">
+                <i class="fas fa-calendar-check"></i>Book Now
+            </a>
+            <a href="tel:+639265684372" class="btn btn-secondary-custom">
+                <i class="fas fa-phone"></i>Call Us Directly
+            </a>
+        </div>
+    </div>
+</section>

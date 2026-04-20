@@ -4,39 +4,591 @@
     ViewData["Title"] = "Services - AMD Audio & Lighting";
 }
 
-<div class="page-header">
+@section Styles {
+    <style>
+        /* ===== PAGE HERO ===== */
+        .services-hero {
+            background: var(--dark);
+            border-bottom: 1px solid var(--border);
+            padding: 5rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .services-hero::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--amber) 40%, var(--cyan) 60%, transparent);
+            }
+
+            .services-hero::after {
+                content: '';
+                position: absolute;
+                top: -60px;
+                right: -60px;
+                width: 400px;
+                height: 400px;
+                background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 70%);
+                pointer-events: none;
+            }
+
+        .page-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 1rem;
+        }
+
+            .page-eyebrow::before {
+                content: '';
+                width: 20px;
+                height: 1px;
+                background: var(--amber);
+            }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            letter-spacing: 0.04em;
+            line-height: 1;
+            color: var(--white);
+            margin-bottom: 1.25rem;
+        }
+
+            .page-title span {
+                color: var(--amber);
+            }
+
+        .page-desc {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 560px;
+            line-height: 1.8;
+        }
+
+        /* ===== MAIN SERVICES ===== */
+        .services-main {
+            background: var(--black);
+            padding: 5rem 0;
+        }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+            .service-row:hover {
+                border-color: rgba(245,166,35,0.3);
+            }
+
+            .service-row.reverse {
+                direction: rtl;
+            }
+
+                .service-row.reverse > * {
+                    direction: ltr;
+                }
+
+        .service-visual {
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .service-visual::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at center, rgba(245,166,35,0.08) 0%, transparent 65%);
+                transition: opacity 0.3s ease;
+            }
+
+        .service-row:hover .service-visual::before {
+            opacity: 2;
+        }
+
+        .service-visual-icon {
+            font-size: 5rem;
+            color: var(--amber);
+            opacity: 0.25;
+            position: absolute;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .service-row:hover .service-visual-icon {
+            opacity: 0.4;
+            transform: scale(1.08);
+        }
+
+        .service-number {
+            font-family: var(--font-display);
+            font-size: 7rem;
+            letter-spacing: -0.02em;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(245,166,35,0.2);
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+            transition: -webkit-text-stroke-color 0.3s ease;
+        }
+
+        .service-row:hover .service-number {
+            -webkit-text-stroke-color: rgba(245,166,35,0.5);
+        }
+
+        .service-info {
+            background: var(--surface);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 1px solid var(--border);
+            position: relative;
+        }
+
+        .service-row.reverse .service-info {
+            border-left: none;
+            border-right: 1px solid var(--border);
+        }
+
+        .service-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--amber), var(--cyan));
+            transition: height 0.4s var(--ease-out);
+        }
+
+        .service-row:hover .service-info::before {
+            height: 100%;
+        }
+
+        .service-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 0.75rem;
+        }
+
+            .service-tag i {
+                font-size: 0.7rem;
+            }
+
+        .service-info h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            margin-bottom: 0.85rem;
+        }
+
+        .service-info p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+            .feature-list li {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                background: var(--surface-2);
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                padding: 0.3rem 0.7rem;
+                font-size: 0.78rem;
+                color: var(--muted);
+                transition: border-color 0.2s ease, color 0.2s ease;
+            }
+
+                .feature-list li::before {
+                    content: '';
+                    width: 4px;
+                    height: 4px;
+                    background: var(--amber);
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                }
+
+        .service-row:hover .feature-list li {
+            border-color: rgba(245,166,35,0.2);
+            color: var(--white);
+        }
+
+        /* ===== PROCESS SECTION ===== */
+        .process-section {
+            background: var(--dark);
+            padding: 5rem 0;
+            border-top: 1px solid var(--border);
+            position: relative;
+        }
+
+            .process-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--amber) 40%, var(--cyan) 60%, transparent);
+            }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+            margin-top: 3rem;
+        }
+
+            .process-steps::before {
+                content: '';
+                position: absolute;
+                top: 28px;
+                left: 12.5%;
+                right: 12.5%;
+                height: 1px;
+                background: linear-gradient(90deg, var(--amber), var(--cyan));
+                z-index: 0;
+            }
+
+        .process-step {
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-circle {
+            width: 56px;
+            height: 56px;
+            background: var(--surface);
+            border: 2px solid var(--amber);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--amber);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .process-step:hover .step-circle {
+            background: var(--amber);
+            color: var(--black);
+        }
+
+        .process-step h5 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            font-size: 0.83rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ===== CTA ===== */
+        .services-cta {
+            background: var(--black);
+            padding: 5rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .services-cta::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(ellipse at 50% 100%, rgba(245,166,35,0.07) 0%, transparent 60%);
+                pointer-events: none;
+            }
+
+            .services-cta h2 {
+                font-family: var(--font-display);
+                font-size: clamp(2.2rem, 5vw, 3.8rem);
+                letter-spacing: 0.04em;
+                color: var(--white);
+                margin-bottom: 1rem;
+            }
+
+                .services-cta h2 span {
+                    color: var(--amber);
+                }
+
+            .services-cta p {
+                color: var(--muted);
+                font-size: 1rem;
+                max-width: 500px;
+                margin: 0 auto 2.5rem;
+                line-height: 1.8;
+            }
+
+        /* ===== RESPONSIVE ===== */
+        @@media (max-width: 768px) {
+            .service-row, .service-row.reverse
+
+        {
+            grid-template-columns: 1fr;
+            direction: ltr;
+        }
+
+        .service-visual {
+            min-height: 160px;
+        }
+
+        .service-row.reverse .service-info {
+            border-right: none;
+            border-left: 1px solid var(--border);
+        }
+
+        .process-steps {
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: 2rem;
+        }
+
+            .process-steps::before {
+                display: none;
+            }
+
+        }
+    </style>
+}
+
+<!-- Page Hero -->
+<section class="services-hero">
     <div class="container">
-        <h1 class="display-4">Our Event Services</h1>
+        <div class="page-eyebrow animate-on-scroll">What We Offer</div>
+        <h1 class="page-title animate-on-scroll">
+            Our Event<br><span>Services</span>
+        </h1>
+        <p class="page-desc animate-on-scroll">
+            From crystal-clear audio to breathtaking lighting design, we provide complete
+            technical production for every type of event across the Philippines.
+        </p>
     </div>
-</div>
+</section>
 
-<div class="container py-5">
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h4 class="card-title">Event Sound Setup</h4>
-                    <p class="card-text">Complete audio setup for weddings, parties, and concerts with professional mixing and setup.</p>
-                </div>
+<!-- Main Services -->
+<section class="services-main">
+    <div class="container">
+
+        <!-- Sound Setup -->
+        <div class="service-row animate-on-scroll">
+            <div class="service-visual">
+                <i class="fas fa-volume-up service-visual-icon"></i>
+                <span class="service-number">01</span>
+            </div>
+            <div class="service-info">
+                <div class="service-tag"><i class="fas fa-circle"></i> Audio Production</div>
+                <h3>Event Sound Setup</h3>
+                <p>Complete professional audio setup for weddings, parties, corporate gatherings, and large-scale concerts. Our engineers handle everything — from system design to flawless live mixing.</p>
+                <ul class="feature-list">
+                    <li>Line Array Systems</li>
+                    <li>Digital Mixing Consoles</li>
+                    <li>Wireless Microphones</li>
+                    <li>Stage Monitors</li>
+                    <li>In-Ear Monitoring</li>
+                    <li>Signal Processing</li>
+                </ul>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h4 class="card-title">Lighting Design</h4>
-                    <p class="card-text">Stage and ambient lighting tailored to your event with dynamic effects and mood creation.</p>
-                </div>
+        <!-- Lighting Design -->
+        <div class="service-row reverse animate-on-scroll">
+            <div class="service-visual">
+                <i class="fas fa-lightbulb service-visual-icon"></i>
+                <span class="service-number">02</span>
+            </div>
+            <div class="service-info">
+                <div class="service-tag"><i class="fas fa-circle"></i> Visual Production</div>
+                <h3>Lighting Design</h3>
+                <p>Stage and ambient lighting tailored to your event's theme and mood. From elegant wedding setups to high-energy concert rigs — we program every cue for maximum visual impact.</p>
+                <ul class="feature-list">
+                    <li>Moving Head Lights</li>
+                    <li>LED Stage Wash</li>
+                    <li>Atmospheric Effects</li>
+                    <li>Truss & Rigging</li>
+                    <li>Gobos & Patterns</li>
+                    <li>DMX Programming</li>
+                </ul>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h4 class="card-title">Technical Support</h4>
-                    <p class="card-text">Professional sound engineers and technicians on-site throughout your event.</p>
-                </div>
+        <!-- Technical Support -->
+        <div class="service-row animate-on-scroll">
+            <div class="service-visual">
+                <i class="fas fa-headset service-visual-icon"></i>
+                <span class="service-number">03</span>
+            </div>
+            <div class="service-info">
+                <div class="service-tag"><i class="fas fa-circle"></i> On-Site Support</div>
+                <h3>Technical Support</h3>
+                <p>Professional sound engineers and lighting technicians on-site throughout your entire event — from load-in and soundcheck all the way to teardown. Zero stress for you.</p>
+                <ul class="feature-list">
+                    <li>Live Audio Engineering</li>
+                    <li>Lighting Operation</li>
+                    <li>System Troubleshooting</li>
+                    <li>Setup & Teardown</li>
+                    <li>Coordination</li>
+                    <li>24/7 Emergency</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Live Streaming -->
+        <div class="service-row reverse animate-on-scroll">
+            <div class="service-visual">
+                <i class="fas fa-video service-visual-icon"></i>
+                <span class="service-number">04</span>
+            </div>
+            <div class="service-info">
+                <div class="service-tag"><i class="fas fa-circle"></i> Broadcast</div>
+                <h3>Live Streaming Production</h3>
+                <p>Broadcast-quality multi-camera live streaming for hybrid events, concerts, and corporate productions. Reach audiences anywhere in the world with professional-grade production.</p>
+                <ul class="feature-list">
+                    <li>Multi-Camera Switching</li>
+                    <li>Facebook / YouTube Live</li>
+                    <li>Graphics & Overlays</li>
+                    <li>Recording & Archiving</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- DJ & Entertainment -->
+        <div class="service-row animate-on-scroll">
+            <div class="service-visual">
+                <i class="fas fa-music service-visual-icon"></i>
+                <span class="service-number">05</span>
+            </div>
+            <div class="service-info">
+                <div class="service-tag"><i class="fas fa-circle"></i> Entertainment</div>
+                <h3>DJ & Entertainment Services</h3>
+                <p>Professional DJs with extensive music libraries spanning every genre and era. Add an MC to keep your guests energized and your program running smooth from start to finish.</p>
+                <ul class="feature-list">
+                    <li>Professional DJs</li>
+                    <li>MC Services</li>
+                    <li>Custom Playlists</li>
+                    <li>CDJ / Controller Setup</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Full Production -->
+        <div class="service-row reverse animate-on-scroll">
+            <div class="service-visual">
+                <i class="fas fa-truck-loading service-visual-icon"></i>
+                <span class="service-number">06</span>
+            </div>
+            <div class="service-info">
+                <div class="service-tag"><i class="fas fa-circle"></i> Full Package</div>
+                <h3>Full Event Production</h3>
+                <p>Let us handle everything. End-to-end event production including stage design, logistics, rigging, and full technical coordination — so you can focus on your guests, not the gear.</p>
+                <ul class="feature-list">
+                    <li>Stage Design</li>
+                    <li>Logistics & Transport</li>
+                    <li>Full Technical Crew</li>
+                    <li>Event Coordination</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="process-section">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label animate-on-scroll" style="justify-content:center;">How It Works</div>
+            <h2 class="section-title animate-on-scroll" style="font-size:2.5rem;">Simple Process,<br>Flawless Results</h2>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step animate-on-scroll">
+                <div class="step-circle">01</div>
+                <h5>Consult</h5>
+                <p>Tell us about your event — venue, guest count, vibe, and budget. We'll craft a plan that fits.</p>
+            </div>
+            <div class="process-step animate-on-scroll">
+                <div class="step-circle">02</div>
+                <h5>Plan</h5>
+                <p>We design your audio-visual setup and send a detailed quote with everything included.</p>
+            </div>
+            <div class="process-step animate-on-scroll">
+                <div class="step-circle">03</div>
+                <h5>Setup</h5>
+                <p>Our crew arrives early, installs all equipment, and runs a full soundcheck before guests arrive.</p>
+            </div>
+            <div class="process-step animate-on-scroll">
+                <div class="step-circle">04</div>
+                <h5>Execute</h5>
+                <p>We operate everything live during your event and handle teardown after — seamlessly.</p>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- CTA -->
+<section class="services-cta">
+    <div class="container position-relative" style="z-index:2;">
+        <div class="section-label animate-on-scroll" style="justify-content:center;">Get Started</div>
+        <h2 class="animate-on-scroll">Ready to Book a<br><span>Service?</span></h2>
+        <p class="animate-on-scroll">
+            Contact us today for a free consultation and custom quote.
+            We're ready to make your next event unforgettable.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3 animate-on-scroll">
+            <a asp-page="/Booking" class="btn btn-primary-custom">
+                <i class="fas fa-calendar-check"></i>Book Now
+            </a>
+            <a asp-page="/Contact" class="btn btn-secondary-custom">
+                <i class="fas fa-phone-alt"></i>Contact Us
+            </a>
+        </div>
+    </div>
+</section>

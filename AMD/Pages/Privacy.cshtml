@@ -1,8 +1,436 @@
 ﻿@page
-@model PrivacyModel
+@model AMD.Pages.PrivacyModel
 @{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@section Styles {
+    <style>
+        /* ===== HERO ===== */
+        .privacy-hero {
+            background: var(--dark);
+            border-bottom: 1px solid var(--border);
+            padding: 5rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .privacy-hero::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--amber) 40%, var(--cyan) 60%, transparent);
+            }
+
+            .privacy-hero::after {
+                content: '';
+                position: absolute;
+                top: -80px;
+                right: -80px;
+                width: 420px;
+                height: 420px;
+                background: radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 70%);
+                pointer-events: none;
+            }
+
+        .page-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 1rem;
+        }
+
+            .page-eyebrow::before {
+                content: '';
+                width: 20px;
+                height: 1px;
+                background: var(--amber);
+            }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            letter-spacing: 0.04em;
+            line-height: 1;
+            color: var(--white);
+            margin-bottom: 1.25rem;
+        }
+
+            .page-title span {
+                color: var(--amber);
+            }
+
+        .page-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.4rem 0.85rem;
+        }
+
+            .page-meta i {
+                color: var(--amber);
+            }
+
+        /* ===== CONTENT SECTION ===== */
+        .privacy-content-section {
+            background: var(--black);
+            padding: 5rem 0 6rem;
+        }
+
+        .privacy-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* ===== TABLE OF CONTENTS ===== */
+        .toc {
+            position: sticky;
+            top: 96px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .toc-header {
+            background: var(--surface-2);
+            border-bottom: 1px solid var(--border);
+            padding: 0.85rem 1.25rem;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            color: var(--white);
+            position: relative;
+        }
+
+            .toc-header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--amber), var(--cyan));
+            }
+
+        .toc-list {
+            list-style: none;
+            padding: 0.75rem 0;
+            margin: 0;
+        }
+
+            .toc-list li a {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1.25rem;
+                font-size: 0.82rem;
+                color: var(--muted);
+                text-decoration: none;
+                transition: color 0.2s ease, background 0.2s ease;
+            }
+
+                .toc-list li a::before {
+                    content: '';
+                    width: 4px;
+                    height: 4px;
+                    background: var(--border);
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                    transition: background 0.2s ease;
+                }
+
+                .toc-list li a:hover {
+                    color: var(--amber);
+                    background: rgba(245,166,35,0.05);
+                }
+
+                    .toc-list li a:hover::before {
+                        background: var(--amber);
+                    }
+
+        /* ===== POLICY CONTENT ===== */
+        .policy-content {
+            min-width: 0;
+        }
+
+        .policy-block {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+            .policy-block:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+        .policy-block-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 0.6rem;
+        }
+
+        .policy-block h2 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            letter-spacing: 0.05em;
+            color: var(--white);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .policy-block p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.85;
+            margin-bottom: 0.75rem;
+        }
+
+            .policy-block p:last-child {
+                margin-bottom: 0;
+            }
+
+        .policy-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .policy-list li {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.75rem;
+                padding: 0.6rem 0;
+                border-bottom: 1px solid var(--border);
+                color: var(--muted);
+                font-size: 0.9rem;
+                line-height: 1.65;
+            }
+
+                .policy-list li:last-child {
+                    border-bottom: none;
+                }
+
+                .policy-list li::before {
+                    content: '';
+                    width: 5px;
+                    height: 5px;
+                    background: var(--amber);
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                    margin-top: 0.55rem;
+                }
+
+        /* ===== CONTACT CALLOUT ===== */
+        .contact-callout {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-top: 0.75rem;
+            transition: border-color 0.2s ease;
+        }
+
+            .contact-callout:hover {
+                border-color: rgba(245,166,35,0.3);
+            }
+
+        .contact-callout-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--amber);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-callout-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-callout a {
+            color: var(--amber);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+            .contact-callout a:hover {
+                color: var(--amber-glow);
+            }
+
+        /* ===== RESPONSIVE ===== */
+        @@media (max-width: 768px) {
+            .privacy-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: static;
+            }
+        }
+    </style>
+}
+
+<!-- Hero -->
+<section class="privacy-hero">
+    <div class="container">
+        <div class="page-eyebrow animate-on-scroll">Legal</div>
+        <h1 class="page-title animate-on-scroll">Privacy<br><span>Policy</span></h1>
+        <div class="page-meta animate-on-scroll">
+            <i class="fas fa-calendar-alt"></i> Last updated: April 2026
+        </div>
+    </div>
+</section>
+
+<!-- Content -->
+<section class="privacy-content-section">
+    <div class="container">
+        <div class="privacy-layout">
+
+            <!-- Table of Contents -->
+            <aside class="toc animate-on-scroll">
+                <div class="toc-header">Contents</div>
+                <ul class="toc-list">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#collect">Information We Collect</a></li>
+                    <li><a href="#use">How We Use It</a></li>
+                    <li><a href="#sharing">Data Sharing</a></li>
+                    <li><a href="#security">Data Security</a></li>
+                    <li><a href="#third-party">Third-Party Services</a></li>
+                    <li><a href="#rights">Your Rights</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </aside>
+
+            <!-- Policy Sections -->
+            <div class="policy-content">
+
+                <div id="overview" class="policy-block animate-on-scroll">
+                    <div class="policy-block-label"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Overview</div>
+                    <h2>Your Privacy Matters</h2>
+                    <p>
+                        <strong style="color:var(--white);">A.M.D Audio and Lighting</strong> respects your privacy. This Privacy Policy explains how we collect, use, and protect your information when you use our website and Messenger chatbot services.
+                    </p>
+                    <p>
+                        By using our services, you agree to the collection and use of information in accordance with this policy. We will never misuse your personal data and are committed to transparency in everything we do.
+                    </p>
+                </div>
+
+                <div id="collect" class="policy-block animate-on-scroll">
+                    <div class="policy-block-label"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Data Collection</div>
+                    <h2>Information We Collect</h2>
+                    <p>We collect only the information necessary to provide and improve our services:</p>
+                    <ul class="policy-list">
+                        <li>Name and basic profile information</li>
+                        <li>Messages sent through Facebook Messenger</li>
+                        <li>Contact details such as phone number or email (if provided)</li>
+                    </ul>
+                </div>
+
+                <div id="use" class="policy-block animate-on-scroll">
+                    <div class="policy-block-label"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Data Usage</div>
+                    <h2>How We Use Your Information</h2>
+                    <p>Your information is used solely to serve you better:</p>
+                    <ul class="policy-list">
+                        <li>To respond to inquiries and customer messages</li>
+                        <li>To provide and improve our services</li>
+                        <li>To send updates or notifications when necessary</li>
+                    </ul>
+                </div>
+
+                <div id="sharing" class="policy-block animate-on-scroll">
+                    <div class="policy-block-label"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Data Sharing</div>
+                    <h2>Data Sharing</h2>
+                    <p>
+                        We do not sell, rent, or trade your personal information to third parties. Your data is used exclusively for service-related purposes within AMD Audio & Lighting.
+                    </p>
+                </div>
+
+                <div id="security" class="policy-block animate-on-scroll">
+                    <div class="policy-block-label"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Security</div>
+                    <h2>Data Security</h2>
+                    <p>
+                        We implement reasonable security measures to protect your information from unauthorized access, disclosure, or misuse. We regularly review our practices to ensure your data stays safe.
+                    </p>
+                </div>
+
+                <div id="third-party" class="policy-block animate-on-scroll">
+                    <div class="policy-block-label"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Third Parties</div>
+                    <h2>Third-Party Services</h2>
+                    <p>
+                        We may use third-party platforms such as Facebook (Meta) to provide Messenger communication services. These platforms may collect and process your data according to their own privacy policies, which we encourage you to review.
+                    </p>
+                </div>
+
+                <div id="rights" class="policy-block animate-on-scroll">
+                    <div class="policy-block-label"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Your Rights</div>
+                    <h2>User Rights</h2>
+                    <p>
+                        You have the right to request access, correction, or deletion of your personal data at any time. Simply reach out to us and we will address your request promptly and respectfully.
+                    </p>
+                </div>
+
+                <div id="contact" class="policy-block animate-on-scroll">
+                    <div class="policy-block-label"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Contact</div>
+                    <h2>Contact Us</h2>
+                    <p>If you have any questions or concerns about this Privacy Policy, you can reach us through:</p>
+
+                    <div class="contact-callout">
+                        <div class="contact-callout-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <div class="contact-callout-label">Email</div>
+                            <a href="mailto:amdaudioandlighting@gmail.com">amdaudioandlighting@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-callout">
+                        <div class="contact-callout-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <div class="contact-callout-label">Phone</div>
+                            <a href="tel:+639265684372">+63 926 568 4372</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

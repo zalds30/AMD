@@ -9,7 +9,7 @@
     <title>@ViewData["Title"] | AMD Audio & Lighting</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="~/images/logo-favicon.png">
+    <link rel="icon" type="images/amd" href="/images/amd-logo.png">
 
     <!-- Bootstrap + Custom CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -513,7 +513,7 @@
     <nav class="navbar navbar-expand-lg navbar-main">
         <div class="container">
             <a class="navbar-brand" asp-page="/Index">
-                <img src="~/images/PNG LOGO.png" alt="AMD Audio & Lighting Logo" class="logo-img">
+                <img src="~/images/amd-logo.png" alt="AMD Audio & Lighting Logo" class="logo-img">
                 <span>AMD <span class="brand-accent">Audio</span> & Lighting</span>
             </a>
 
@@ -557,10 +557,10 @@
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-4">
-                    <img src="~/images/PNG LOGO.png" alt="AMD Logo" class="footer-logo">
+                    <img src="~/images/amd-logo.png" alt="AMD Logo" class="footer-logo">
                     <p class="footer-tagline">Professional audio and lighting solutions that elevate your events. We bring expertise, quality equipment, and passion to every project.</p>
 
-                    <div class="social-icons">
+                 @*    <div class="social-icons">
                         <a href="https://facebook.com" class="social-icon" target="_blank" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
@@ -573,7 +573,7 @@
                         <a href="https://viber.com" class="social-icon" target="_blank" aria-label="Viber">
                             <i class="fab fa-viber"></i>
                         </a>
-                    </div>
+                    </div> *@
                 </div>
 
                 <div class="col-lg-2 col-md-4">
@@ -695,7 +695,7 @@
         // Background music
         document.addEventListener('DOMContentLoaded', function() {
             const bgMusic = new Audio();
-            bgMusic.src = '/audio/background.mp3';
+            bgMusic.src = '/audio/amdaudio.mp3';
             bgMusic.loop = true;
             bgMusic.volume = 0.2;
             bgMusic.play().catch(() => {

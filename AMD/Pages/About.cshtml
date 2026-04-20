@@ -6,633 +6,678 @@
 
 @section Styles {
     <style>
-        /* Hero Section - Natural gradient overlay */
+        /* ===== HERO ===== */
         .about-hero {
-            min-height: 65vh;
-            background: linear-gradient(125deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.88) 100%), url('/images/about-bg.jpg') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            color: white;
-            padding: 120px 0 80px;
+            background: var(--dark);
+            border-bottom: 1px solid var(--border);
+            padding: 5rem 0 4rem;
             position: relative;
+            overflow: hidden;
         }
 
-            .about-hero::after {
+            .about-hero::before {
                 content: '';
                 position: absolute;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                height: 100px;
-                background: linear-gradient(to bottom, transparent, #f8fafc);
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--amber) 40%, var(--cyan) 60%, transparent);
             }
 
-        .hero-badge {
-            background: linear-gradient(90deg, #2563eb, #7c3aed);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            .about-hero::after {
+                content: '';
+                position: absolute;
+                top: -80px;
+                right: -80px;
+                width: 500px;
+                height: 500px;
+                background: radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 70%);
+                pointer-events: none;
+            }
+
+        .page-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 1rem;
         }
 
-        .hero-title {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 20px;
-            color: white;
+            .page-eyebrow::before {
+                content: '';
+                width: 20px;
+                height: 1px;
+                background: var(--amber);
+            }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            letter-spacing: 0.04em;
+            line-height: 1;
+            color: var(--white);
+            margin-bottom: 1.25rem;
         }
 
-        .hero-highlight {
-            background: linear-gradient(90deg, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            .page-title span {
+                color: var(--amber);
+            }
+
+        .page-desc {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 560px;
+            line-height: 1.8;
+            margin-bottom: 2rem;
         }
 
-        .hero-subtitle {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: #cbd5e1;
-            max-width: 600px;
-            margin-bottom: 30px;
-            font-weight: 400;
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        /* Story Section - Realistic layout */
+        /* ===== STORY SECTION ===== */
         .story-section {
-            padding: 100px 0;
-            background: #f8fafc;
+            background: var(--black);
+            padding: 6rem 0;
             position: relative;
         }
 
-        .story-container {
+        .story-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 4rem;
             align-items: center;
         }
 
-        .story-image-wrapper {
+        .story-image-wrap {
             position: relative;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: rotate(-1deg);
+            border: 1px solid var(--border);
         }
 
-        .story-image {
+        .story-image-placeholder {
             width: 100%;
-            height: 500px;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .story-image-wrapper:hover .story-image {
-            transform: scale(1.05);
-        }
-
-        .story-image-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 30px;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-        }
-
-        .story-content h2 {
-            font-size: 2.4rem;
-            color: #0f172a;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .story-content p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #475569;
-            margin-bottom: 20px;
-        }
-
-        .story-quote {
-            border-left: 4px solid #2563eb;
-            padding-left: 20px;
-            margin: 30px 0;
-            font-style: italic;
-            color: #475569;
-            font-size: 1.1rem;
-        }
-
-        /* Stats - Realistic layout */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 60px;
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: #2563eb;
-            margin-bottom: 5px;
-            line-height: 1;
-        }
-
-        .stat-label {
-            color: #64748b;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        /* Values Section */
-        .values-section {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            color: #0f172a;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .section-subtitle {
-            color: #64748b;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .value-card {
-            background: #f8fafc;
-            padding: 40px 30px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-
-            .value-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 20px 40px rgba(37, 99, 235, 0.08);
-                border-color: #2563eb;
-            }
-
-        .value-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .value-title {
-            font-size: 1.3rem;
-            color: #0f172a;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .value-description {
-            color: #64748b;
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        /* Team Section - Founder Only */
-        .team-section {
-            padding: 100px 0;
-            background: #f8fafc;
-        }
-
-        .team-single {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-            .team-single:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 30px 50px rgba(0,0,0,0.15);
-            }
-
-        .team-photo {
-            height: 300px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            height: 460px;
+            background: var(--surface);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 5rem;
-            color: white;
+            color: var(--amber);
+            opacity: 0.2;
+            position: relative;
         }
 
-        .team-info {
-            padding: 30px;
+        .story-image-wrap img {
+            width: 100%;
+            height: 460px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .story-image-wrap:hover img {
+            transform: scale(1.04);
+        }
+
+        .story-image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(8,10,14,0.9), transparent);
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .story-content .page-eyebrow {
+            margin-bottom: 0.75rem;
+        }
+
+        .story-content h2 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+
+        .story-content p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .story-quote {
+            border-left: 2px solid var(--amber);
+            padding: 1rem 1.25rem;
+            margin: 1.75rem 0;
+            background: var(--surface);
+            border-radius: 0 6px 6px 0;
+        }
+
+            .story-quote p {
+                color: var(--white);
+                font-style: italic;
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .story-quote cite {
+                color: var(--amber);
+                font-size: 0.82rem;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                font-style: normal;
+            }
+
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            background: var(--dark);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 4rem 0;
+            position: relative;
+        }
+
+            .stats-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, var(--amber) 40%, var(--cyan) 60%, transparent);
+            }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .stat-item {
             text-align: center;
+            padding: 2rem;
+            border-right: 1px solid var(--border);
         }
 
-        .team-name {
-            font-size: 1.8rem;
-            color: #0f172a;
-            margin-bottom: 10px;
-            font-weight: 700;
+            .stat-item:last-child {
+                border-right: none;
+            }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            letter-spacing: 0.02em;
+            color: var(--amber);
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
         }
 
-        .team-position {
-            color: #2563eb;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+        .stat-label {
+            color: var(--muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
-        .team-bio {
-            color: #64748b;
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 25px;
+        /* ===== VALUES SECTION ===== */
+        .values-section {
+            background: var(--black);
+            padding: 6rem 0;
         }
 
-        .team-social {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
+        .value-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease;
         }
 
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: #f1f5f9;
-            border-radius: 50%;
+            .value-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--amber), var(--cyan));
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.4s ease;
+            }
+
+            .value-card:hover {
+                border-color: rgba(245,166,35,0.3);
+                transform: translateY(-5px);
+            }
+
+                .value-card:hover::before {
+                    transform: scaleX(1);
+                }
+
+        .value-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
+            font-size: 1.3rem;
+            color: var(--amber);
+            margin-bottom: 1.25rem;
+            transition: background 0.2s ease;
+        }
+
+        .value-card:hover .value-icon {
+            background: var(--amber);
+            color: var(--black);
+            border-color: var(--amber);
+        }
+
+        .value-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+
+        .value-card p {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* ===== FOUNDER SECTION ===== */
+        .founder-section {
+            background: var(--dark);
+            border-top: 1px solid var(--border);
+            padding: 6rem 0;
+        }
+
+        .founder-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 680px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 220px 1fr;
+        }
+
+        .founder-photo {
+            background: var(--surface-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--amber);
+            opacity: 0.3;
+            min-height: 280px;
+            position: relative;
+        }
+
+            .founder-photo::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at center, rgba(245,166,35,0.08) 0%, transparent 70%);
+            }
+
+        .founder-info {
+            padding: 2rem;
+            border-left: 1px solid var(--border);
+        }
+
+        .founder-name {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .founder-role {
+            color: var(--amber);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .founder-bio {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .founder-socials {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .founder-social {
+            width: 34px;
+            height: 34px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.85rem;
             text-decoration: none;
             transition: all 0.2s ease;
-            font-size: 1.1rem;
         }
 
-            .social-link:hover {
-                background: #2563eb;
-                color: white;
-                transform: translateY(-3px);
+            .founder-social:hover {
+                background: var(--amber);
+                border-color: var(--amber);
+                color: var(--black);
             }
 
-        /* CTA Section - Simple and effective */
+        /* ===== CTA ===== */
         .about-cta {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: white;
+            background: var(--black);
+            border-top: 1px solid var(--border);
+            padding: 5rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .cta-title {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .cta-text {
-            color: #cbd5e1;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            line-height: 1.7;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* Responsive Design */
-        @@media (max-width: 992px) {
-            .story-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            .about-cta::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(ellipse at 50% 100%, rgba(245,166,35,0.07) 0%, transparent 60%);
+                pointer-events: none;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .about-cta h2 {
+                font-family: var(--font-display);
+                font-size: clamp(2.2rem, 5vw, 3.8rem);
+                letter-spacing: 0.04em;
+                color: var(--white);
+                margin-bottom: 1rem;
             }
 
-            .hero-title {
-                font-size: 2.5rem;
-            }
-        }
-
-        @@media (max-width: 768px) {
-            .about-hero {
-                min-height: 50vh;
-                padding: 100px 0 60px;
-            }
-
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-                .cta-buttons .btn {
-                    width: 100%;
-                    max-width: 300px;
+                .about-cta h2 span {
+                    color: var(--amber);
                 }
-        }
 
-        /* Animation classes */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-            .fade-up.visible {
-                opacity: 1;
-                transform: translateY(0);
+            .about-cta p {
+                color: var(--muted);
+                font-size: 1rem;
+                max-width: 500px;
+                margin: 0 auto 2.5rem;
+                line-height: 1.8;
             }
+
+        /* ===== RESPONSIVE ===== */
+        @@media (max-width: 992px) {
+            .story-grid
+
+        {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+            .stats-grid .stat-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .stats-grid .stat-item:nth-child(3) {
+                border-top: 1px solid var(--border);
+            }
+
+            .stats-grid .stat-item:nth-child(4) {
+                border-top: 1px solid var(--border);
+                border-right: none;
+            }
+
+        .founder-card {
+            grid-template-columns: 1fr;
+        }
+
+        .founder-photo {
+            min-height: 180px;
+        }
+
+        .founder-info {
+            border-left: none;
+            border-top: 1px solid var(--border);
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .stats-grid
+
+        {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        }
     </style>
 }
 
-<!-- Hero Section -->
+<!-- Hero -->
 <section class="about-hero">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-7">
-                <span class="hero-badge fade-up">
-                    <i class="fas fa-star"></i>Our Story
-                </span>
-                <h1 class="hero-title fade-up">
-                    Bringing <span class="hero-highlight">Sound & Light</span> to Life Since 2012
-                </h1>
-                <p class="hero-subtitle fade-up">
-                    AMD Audio & Lighting started with a simple passion: creating unforgettable experiences through professional audio-visual solutions. What began as a small local service has grown into one of the most trusted event production partners in the Philippines.
-                </p>
-                <div class="fade-up">
-                    <a href="#story" class="btn btn-primary-custom me-3">
-                        <i class="fas fa-book me-2"></i>Our Journey
-                    </a>
-                    <a href="#team" class="btn btn-secondary-custom">
-                        <i class="fas fa-users me-2"></i>Meet Our Founder
-                    </a>
-                </div>
-            </div>
+        <div class="page-eyebrow animate-on-scroll">Our Story</div>
+        <h1 class="page-title animate-on-scroll">
+            Bringing <span>Sound & Light</span><br>to Life Since 2012
+        </h1>
+        <p class="page-desc animate-on-scroll">
+            AMD Audio & Lighting started with a simple passion: creating unforgettable experiences
+            through professional audio-visual solutions. What began as a small local service has grown
+            into one of the most trusted event production partners in the Philippines.
+        </p>
+        <div class="hero-ctas animate-on-scroll">
+            <a href="#story" class="btn btn-primary-custom">
+                <i class="fas fa-book"></i>Our Journey
+            </a>
+            <a href="#founder" class="btn btn-secondary-custom">
+                <i class="fas fa-user-tie"></i>Meet Our Founder
+            </a>
         </div>
     </div>
 </section>
 
-<!-- Our Story -->
+<!-- Story Section -->
 <section id="story" class="story-section">
     <div class="container">
-        <div class="story-container">
-            <div class="story-image-wrapper fade-up">
-                <img src="/images/team-work.jpg" alt="Our team setting up equipment" class="story-image">
-                <div class="story-image-overlay">
-                    <i class="fas fa-quote-left me-2"></i>
-                    <span>Passionate professionals creating memorable events</span>
+        <div class="story-grid">
+            <div class="story-image-wrap animate-on-scroll">
+                <img src="/images/team-work.jpg" alt="Our team setting up equipment"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="story-image-placeholder" style="display:none;">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <div class="story-image-caption">
+                    <i class="fas fa-quote-left me-2"></i>Passionate professionals creating memorable events
                 </div>
             </div>
 
-            <div class="story-content">
-                <h2 class="fade-up">How It All Began</h2>
-                <p class="fade-up">
+            <div class="story-content animate-on-scroll">
+                <div class="page-eyebrow">How It All Began</div>
+                <h2>Built from<br>the Ground Up</h2>
+                <p>
                     AMD Audio & Lighting was founded by Joel Delos Reyes in 2012. Starting with just two speakers and a mixer, Joel saw a need for reliable, high-quality audio equipment for local events in Lanao del Norte.
                 </p>
-                <p class="fade-up">
-                    What started as weekend gigs for weddings and community events quickly grew as word spread about our commitment to quality and customer service. We listened to our clients, invested in better equipment, and expanded our team with like-minded professionals.
+                <p>
+                    What started as weekend gigs for weddings and community events quickly grew as word spread about our commitment to quality and customer service. We listened to our clients, invested in better equipment, and expanded our team.
                 </p>
 
-                <blockquote class="story-quote fade-up">
-                    "Our philosophy is simple: treat every event like it's our own. Whether it's a small birthday party or a large corporate conference, we bring the same level of dedication and expertise."
-                    <div class="mt-2" style="font-style: normal; color: #2563eb; font-weight: 600;">- Joel Delos Reyes, Founder</div>
-                </blockquote>
+                <div class="story-quote">
+                    <p>"Our philosophy is simple: treat every event like it's our own. Whether it's a small birthday party or a large corporate conference, we bring the same level of dedication and expertise."</p>
+                    <cite>— Joel Delos Reyes, Founder</cite>
+                </div>
 
-                <p class="fade-up">
+                <p>
                     Today, we serve clients across Mindanao and beyond, but we've never lost that personal touch that made us successful. We still handle every booking personally and maintain direct relationships with all our clients.
                 </p>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Stats -->
-        <div class="stats-grid fade-up">
-            <div class="stat-item">
-                <div class="stat-number">500+</div>
-                <div class="stat-label">Events Served</div>
+<!-- Stats -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item animate-on-scroll">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Events Served</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">98%</div>
-                <div class="stat-label">Client Satisfaction</div>
+            <div class="stat-item animate-on-scroll">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Client Satisfaction</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Support Available</div>
+            <div class="stat-item animate-on-scroll">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support Available</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Cities Covered</div>
+            <div class="stat-item animate-on-scroll">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Cities Covered</span>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Our Values -->
+<!-- Values -->
 <section class="values-section">
     <div class="container">
-        <div class="section-header fade-up">
-            <h2 class="section-title">What We Stand For</h2>
-            <p class="section-subtitle">These principles guide everything we do, from equipment selection to customer service</p>
+        <div class="text-center mb-5">
+            <div class="section-label animate-on-scroll" style="justify-content:center;">What We Stand For</div>
+            <h2 class="section-title animate-on-scroll">Our Core Values</h2>
+            <p class="section-subtitle animate-on-scroll">These principles guide everything we do, from equipment selection to customer service</p>
         </div>
 
-        <div class="values-grid">
-            <div class="value-card fade-up">
-                <div class="value-icon">
-                    <i class="fas fa-medal"></i>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="value-card animate-on-scroll">
+                    <div class="value-icon"><i class="fas fa-medal"></i></div>
+                    <h3>Quality Equipment</h3>
+                    <p>We invest in professional-grade equipment from trusted brands and maintain it to the highest standards.</p>
                 </div>
-                <h3 class="value-title">Quality Equipment</h3>
-                <p class="value-description">We invest in professional-grade equipment from trusted brands and maintain it to the highest standards.</p>
             </div>
-
-            <div class="value-card fade-up">
-                <div class="value-icon">
-                    <i class="fas fa-handshake"></i>
+            <div class="col-lg-4 col-md-6">
+                <div class="value-card animate-on-scroll">
+                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Reliable Service</h3>
+                    <p>When you book with us, we show up on time, prepared, and ready to make your event a success.</p>
                 </div>
-                <h3 class="value-title">Reliable Service</h3>
-                <p class="value-description">When you book with us, we show up on time, prepared, and ready to make your event a success.</p>
             </div>
-
-            <div class="value-card fade-up">
-                <div class="value-icon">
-                    <i class="fas fa-lightbulb"></i>
+            <div class="col-lg-4 col-md-6">
+                <div class="value-card animate-on-scroll">
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Creative Solutions</h3>
+                    <p>Every event is unique. We work with you to create custom solutions that fit your vision and budget.</p>
                 </div>
-                <h3 class="value-title">Creative Solutions</h3>
-                <p class="value-description">Every event is unique. We work with you to create custom solutions that fit your vision and budget.</p>
             </div>
-
-            <div class="value-card fade-up">
-                <div class="value-icon">
-                    <i class="fas fa-heart"></i>
+            <div class="col-lg-4 col-md-6">
+                <div class="value-card animate-on-scroll">
+                    <div class="value-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Local Pride</h3>
+                    <p>We're proud to be based in Lanao del Norte and are committed to supporting our local community.</p>
                 </div>
-                <h3 class="value-title">Local Pride</h3>
-                <p class="value-description">We're proud to be based in Lanao del Norte and are committed to supporting our local community.</p>
             </div>
-
-            <div class="value-card fade-up">
-                <div class="value-icon">
-                    <i class="fas fa-headset"></i>
+            <div class="col-lg-4 col-md-6">
+                <div class="value-card animate-on-scroll">
+                    <div class="value-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Personal Support</h3>
+                    <p>You'll work directly with our team, not through automated systems. We're always here to help.</p>
                 </div>
-                <h3 class="value-title">Personal Support</h3>
-                <p class="value-description">You'll work directly with our team, not through automated systems. We're always here to help.</p>
             </div>
-
-            <div class="value-card fade-up">
-                <div class="value-icon">
-                    <i class="fas fa-chart-line"></i>
+            <div class="col-lg-4 col-md-6">
+                <div class="value-card animate-on-scroll">
+                    <div class="value-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Continuous Growth</h3>
+                    <p>We're always learning and improving, staying updated with the latest audio-visual technologies.</p>
                 </div>
-                <h3 class="value-title">Continuous Growth</h3>
-                <p class="value-description">We're always learning and improving, staying updated with the latest audio-visual technologies.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Meet the Founder (Only) -->
-<section id="team" class="team-section">
+<!-- Founder -->
+<section id="founder" class="founder-section">
     <div class="container">
-        <div class="section-header fade-up">
-            <h2 class="section-title">Meet Our Founder</h2>
-            <p class="section-subtitle">The vision behind AMD Audio & Lighting</p>
+        <div class="text-center mb-5">
+            <div class="section-label animate-on-scroll" style="justify-content:center;">The Vision Behind AMD</div>
+            <h2 class="section-title animate-on-scroll">Meet Our Founder</h2>
         </div>
 
-        <div class="team-single fade-up">
-            <div class="team-photo">
+        <div class="founder-card animate-on-scroll">
+            <div class="founder-photo">
                 <i class="fas fa-user-tie"></i>
             </div>
-            <div class="team-info">
-                <h3 class="team-name">Joel Delos Reyes</h3>
-                <div class="team-position">Founder & Technical Director</div>
-                <p class="team-bio">
+            <div class="founder-info">
+                <div class="founder-name">Joel Delos Reyes</div>
+                <div class="founder-role">Founder & Technical Director</div>
+                <p class="founder-bio">
                     With over 15 years of experience in event production, Joel started AMD Audio & Lighting from scratch with just two speakers and a dream. Today, he oversees all technical operations and personally ensures that every event meets the company's high standards. His passion for quality service and dedication to client satisfaction remains the driving force behind AMD's success.
                 </p>
-                <div class="team-social">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <div class="founder-socials">
+                    <a href="https://www.facebook.com/michael.delosreyes.12935" class="founder-social" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                  @*   <a href="#" class="founder-social" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="founder-social" aria-label="Twitter"><i class="fab fa-twitter"></i></a> *@
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="about-cta fade-up">
-    <div class="container">
-        <h2 class="cta-title">Ready to Work Together?</h2>
-        <p class="cta-text">
-            Whether you're planning a wedding, corporate event, concert, or private party, we'd love to help bring your vision to life with professional audio and lighting solutions.
+<!-- CTA -->
+<section class="about-cta">
+    <div class="container position-relative" style="z-index:2;">
+        <div class="section-label animate-on-scroll" style="justify-content:center;">Work With Us</div>
+        <h2 class="animate-on-scroll">Ready to Work<br><span>Together?</span></h2>
+        <p class="animate-on-scroll">
+            Whether you're planning a wedding, corporate event, concert, or private party,
+            we'd love to help bring your vision to life with professional audio and lighting solutions.
         </p>
-        <div class="cta-buttons">
+        <div class="d-flex flex-wrap justify-content-center gap-3 animate-on-scroll">
             <a asp-page="/Contact" class="btn btn-primary-custom">
-                <i class="fas fa-envelope me-2"></i>Get in Touch
+                <i class="fas fa-envelope"></i>Get in Touch
             </a>
-            <a asp-page="/Booking" class="btn btn-light">
-                <i class="fas fa-calendar-check me-2"></i>Book Your Event
+            <a asp-page="/Booking" class="btn btn-secondary-custom">
+                <i class="fas fa-calendar-check"></i>Book Your Event
             </a>
         </div>
     </div>
 </section>
-
-@section Scripts {
-    <script>
-        // Simple scroll animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const fadeElements = document.querySelectorAll('.fade-up');
-
-            const fadeOnScroll = function() {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementVisible = 150;
-
-                    if (elementTop < window.innerHeight - elementVisible) {
-                        element.classList.add('visible');
-                    }
-                });
-            };
-
-            // Initial check
-            fadeOnScroll();
-
-            // Check on scroll
-            window.addEventListener('scroll', fadeOnScroll);
-
-            // Add loading animation for images
-            const images = document.querySelectorAll('img');
-            images.forEach(img => {
-                img.style.transition = 'opacity 0.5s ease';
-                img.style.opacity = '0';
-
-                img.onload = function() {
-                    this.style.opacity = '1';
-                };
-
-                // If image is already loaded
-                if (img.complete) {
-                    img.style.opacity = '1';
-                }
-            });
-        });
-    </script>
-}
